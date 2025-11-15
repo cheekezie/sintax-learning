@@ -47,7 +47,7 @@ function App() {
                           }
                         />
                         <Route
-                          path='/'
+                          path='/courses'
                           element={
                             <LazyRoute>
                               <CourseList />

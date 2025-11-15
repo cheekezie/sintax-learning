@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { HeroRight } from '@/assets';
 import { Button } from '@/components/ui';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const HomeHero = () => {
   const texts = ['skill up ?', 'level up ?', 'get ahead ?'];
@@ -48,7 +49,10 @@ const HomeHero = () => {
           </div>
 
           <div className='flex mt-8'>
-            <Button variant='accent-1'>Explore Courses</Button>
+            <Link to={'/courses'} className='w-full'>
+              <Button variant='accent-1'>Explore Courses</Button>
+            </Link>
+
             <Button className='border border-white ml-4'>For Businesses</Button>
           </div>
         </motion.div>

@@ -62,7 +62,7 @@ export default function Services() {
         style={{ bottom: '20%', right: '10%' }}
       />
 
-      <div className='relative mx-auto md:grid grid-cols-4 gap-6 max-w-[1200px] items-start'>
+      <div className='relative mx-auto md:grid grid-cols-4 gap-6 max-w-[1200px] items-start mb-6 md:mb-0'>
         {cards.map((card, index) => (
           <motion.div
             key={index}

@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 
 // Input Component
 export interface InputProps {
-  label: string;
+  label?: string;
   name: string;
   type?: 'text' | 'email' | 'tel' | 'password' | 'number' | 'date' | 'month';
   placeholder?: string;
