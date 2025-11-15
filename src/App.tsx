@@ -17,9 +17,6 @@ import ReactQueryProvider from './providers/ReactQueryProvider';
 import CourseList from './pages/Courses/CourseList';
 import Home from './pages/Home';
 
-// Lazy load all page components for code splitting
-const Checkout = React.lazy(() => import('./pages/Checkout'));
-
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 // Add these imports at the top with other lazy imports
