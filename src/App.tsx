@@ -14,6 +14,8 @@ import {
   ToastProvider,
 } from './contexts';
 import ReactQueryProvider from './providers/ReactQueryProvider';
+import CourseList from './pages/Courses/CourseList';
+import Home from './pages/Home';
 
 // Lazy load all page components for code splitting
 const Checkout = React.lazy(() => import('./pages/Checkout'));
@@ -43,7 +45,15 @@ function App() {
                           path='/'
                           element={
                             <LazyRoute>
-                              <Checkout />
+                              <Home />
+                            </LazyRoute>
+                          }
+                        />
+                        <Route
+                          path='/'
+                          element={
+                            <LazyRoute>
+                              <CourseList />
                             </LazyRoute>
                           }
                         />

@@ -7,8 +7,9 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 /* @suppress */
 @theme {
-  --color-primary: #ffd47d;
-  --color-secondary: #144049;
+  --color-primary: #ff6b00;
+  --color-primary-light: #f68a3b;
+  --color-secondary: #101935;
   --color-bg: #ffffff;
   --color-text: #0f172a;
   --color-dark: #144049;
@@ -23,8 +24,9 @@
 
 /* Fallback CSS custom properties for compatibility */
 :root {
-  --color-primary: #ffd47d;
-  --color-secondary: #144049;
+  --color-primary: #ff6b00;
+  --color-primary-light: #f68a3b;
+  --color-secondary: #101935;
   --color-bg: #ffffff;
   --color-text: #0f172a;
   --color-dark: #505050;
@@ -126,4 +128,36 @@ body {
 
 button {
   cursor: pointer;
+}
+
+@layer utilities {
+  .bg-accent-1 {
+    @apply bg-linear-to-r from-primary to-primary-light;
+  }
+
+  .bg-accent-2 {
+    @apply bg-linear-to-r from-primary to-secondary;
+  }
+  @keyframes textLoop {
+    0%,
+    33% {
+      opacity: 1;
+    }
+    34%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-textLoop {
+    animation: textLoop 6s linear infinite;
+  }
+
+  .animate-textLoop-delay-2s {
+    animation: textLoop 6s linear infinite 2s;
+  }
+
+  .animate-textLoop-delay-4s {
+    animation: textLoop 6s linear infinite 4s;
+  }
 }
