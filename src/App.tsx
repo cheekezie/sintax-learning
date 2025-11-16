@@ -16,6 +16,7 @@ import {
 import ReactQueryProvider from './providers/ReactQueryProvider';
 import CourseList from './pages/Courses/CourseList';
 import Home from './pages/Home';
+import FAQ from './pages/faq';
 
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
@@ -51,6 +52,15 @@ function App() {
                           element={
                             <LazyRoute>
                               <CourseList />
+                            </LazyRoute>
+                          }
+                        />
+
+                        <Route
+                          path='/faq'
+                          element={
+                            <LazyRoute>
+                              <FAQ />
                             </LazyRoute>
                           }
                         />

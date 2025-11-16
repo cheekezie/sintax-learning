@@ -34,7 +34,7 @@ export default function Feature() {
         </div>
       </div>
       <section className='py-[100px] px-8 mb-8'>
-        <div className='mx-auto md:grid grid-cols-3 gap-6 max-w-[1200px] items-start mb-6 md:mb-0'>
+        <div className='mx-auto grid md:grid-cols-3 gap-6 max-w-[1200px] items-start mb-6 md:mb-0'>
           {/* Expert Instructors */}
           <motion.div
             className='rounded-2xl bg-off-white py-6 px-5 shadow-md'

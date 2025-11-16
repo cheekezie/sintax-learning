@@ -8,7 +8,9 @@ const NavBar = () => {
       <div className='container mx-auto flex items-center justify-between'>
         {/* Logo */}
         <div>
-          <img src={Logo} alt='Sintax Logo' className='h-6 md:h-8 w-auto' />
+          <Link to={'/'}>
+            <img src={Logo} alt='Sintax Logo' className='h-6 md:h-8 w-auto cursor-pointer' />
+          </Link>
         </div>
 
         {/* Search */}
