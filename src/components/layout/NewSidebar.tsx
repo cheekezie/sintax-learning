@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import logoLight from '../../assets/logo-light.svg';
+import LogoWhite from '../../assets/logo-white.svg';
 import LogoIcon from '../../assets/logo-icon.svg';
 import {
   LayoutDashboard,
@@ -155,7 +155,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
 
               {/* Logo */}
               <div className='p-6 border-b border-slate-200/50'>
-                <img src={logoLight} alt='SaukiPay' className='h-12 w-auto' />
+                <img src={LogoWhite} alt='SaukiPay' className='h-12 w-auto' />
               </div>
 
               {/* Navigation */}
@@ -194,7 +194,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
             {collapsed ? (
               <img src={LogoIcon} alt='SaukiPay' className='w-auto h-10 transition-all duration-300' />
             ) : (
-              <img src={logoLight} alt='SaukiPay' className='w-auto h-12 transition-all duration-300' />
+              <img src={LogoWhite} alt='SaukiPay' className='w-auto h-12 transition-all duration-300' />
             )}
           </div>
         </div>
