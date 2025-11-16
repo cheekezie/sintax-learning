@@ -16,7 +16,7 @@ import {
 import ReactQueryProvider from './providers/ReactQueryProvider';
 import CourseList from './pages/Courses/CourseList';
 import Home from './pages/Home';
-import FAQ from './pages/faq';
+import FAQ from './pages/FAQ';
 
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
