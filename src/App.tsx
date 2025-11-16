@@ -13,10 +13,10 @@ import {
   OrgProvider,
   ToastProvider,
 } from './contexts';
-import ReactQueryProvider from './providers/ReactQueryProvider';
 import CourseList from './pages/Courses/CourseList';
+import FaqPage from './pages/FaqPage';
 import Home from './pages/Home';
-import FAQ from './pages/FAQ';
+import ReactQueryProvider from './providers/ReactQueryProvider';
 
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
@@ -60,7 +60,7 @@ function App() {
                           path='/faq'
                           element={
                             <LazyRoute>
-                              <FAQ />
+                              <FaqPage />
                             </LazyRoute>
                           }
                         />
