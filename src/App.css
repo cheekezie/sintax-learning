@@ -130,6 +130,12 @@ button {
   cursor: pointer;
 }
 
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
 @layer utilities {
   .bg-accent-1 {
     @apply bg-linear-to-r from-primary to-primary-light;
