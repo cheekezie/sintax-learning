@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
 import { ErrorBoundary } from './components/common/ErrorBoundary';
@@ -13,19 +13,9 @@ import {
   OrgProvider,
   ToastProvider,
 } from './contexts';
-import CourseList from './pages/Courses/CourseList';
-import FaqPage from './pages/FaqPage';
-import Home from './pages/Home';
+
 import ReactQueryProvider from './providers/ReactQueryProvider';
-
-const NotFound = React.lazy(() => import('./pages/NotFound'));
-
-// Add these imports at the top with other lazy imports
-
-// Helper component to wrap lazy components with Suspense
-const LazyRoute = ({ children }: { children: React.ReactElement }) => (
-  <Suspense fallback={<ComponentLoading size='lg' fullScreen={true} />}>{children}</Suspense>
-);
+import { AppRoutes } from './routes';
 
 function App() {
   return (
@@ -38,43 +28,7 @@ function App() {
                 <OnboardingProvider>
                   <OrgProvider>
                     <ReactQueryProvider>
-                      <Routes>
-                        <Route
-                          path='/'
-                          element={
-                            <LazyRoute>
-                              <Home />
-                            </LazyRoute>
-                          }
-                        />
-                        <Route
-                          path='/courses'
-                          element={
-                            <LazyRoute>
-                              <CourseList />
-                            </LazyRoute>
-                          }
-                        />
-
-                        <Route
-                          path='/faq'
-                          element={
-                            <LazyRoute>
-                              <FaqPage />
-                            </LazyRoute>
-                          }
-                        />
-
-                        {/* Catch-all for other Wildcard routes */}
-                        <Route
-                          path='*'
-                          element={
-                            <LazyRoute>
-                              <NotFound />
-                            </LazyRoute>
-                          }
-                        />
-                      </Routes>
+                      <AppRoutes />
                       <ModalContainer />
                     </ReactQueryProvider>
                   </OrgProvider>

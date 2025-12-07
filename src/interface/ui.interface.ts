@@ -15,6 +15,8 @@ export interface InputProps {
   max?: number;
   required?: boolean;
   disabled?: boolean;
+  touched?: boolean;
+  autoComplete?: string;
   error?: string;
   helperText?: string;
   className?: string;
@@ -83,6 +85,7 @@ export interface SelectProps {
   icon?: LucideIcon;
   required?: boolean;
   disabled?: boolean;
+  touched?: boolean;
   error?: string;
   helperText?: string;
   className?: string;

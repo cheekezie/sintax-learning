@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/Accordion';
 
@@ -36,8 +37,8 @@ const FaqPage = () => {
   return (
     <>
       <NavBar />
-      <main className=''>
-        <div className='mb-8 bg-secondary py-[50px] '>
+      <main className='pb-20'>
+        <div className='mb-8 bg-secondary py-[50px] pt-40'>
           <div className='max-w-xl mx-auto'>
             <h1 className='text-center mb-8 text-xl px-4 text-white'>Frequently Asked Questions</h1>
             <p className='text-white text-center'>
@@ -62,6 +63,7 @@ const FaqPage = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

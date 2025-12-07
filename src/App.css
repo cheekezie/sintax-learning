@@ -167,3 +167,7 @@ select {
     animation: textLoop 6s linear infinite 4s;
   }
 }
+
+.shadow-light {
+  box-shadow: 10px 0 60px rgba(139, 139, 139, 0.1);
+}

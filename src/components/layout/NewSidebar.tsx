@@ -1,22 +1,22 @@
+import { LogoDark, LogoIcon } from '@/assets';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import LogoWhite from '../../assets/logo-white.svg';
-import LogoIcon from '../../assets/logo-icon.svg';
 import {
+  ArrowLeftRight,
+  Banknote,
+  Code,
+  FileCheck,
+  FileText,
   LayoutDashboard,
   Package,
-  FileCheck,
-  Users,
-  ArrowLeftRight,
-  FileText,
-  Wallet,
-  Banknote,
-  Split,
   RotateCcw,
-  Code,
+  Split,
+  UserCircle,
+  Users,
+  Wallet,
+  X,
   type LucideIcon,
 } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -43,66 +43,22 @@ const navItems: NavItem[] = [
     path: '/dashboard',
   },
   {
-    id: 'products',
-    label: 'Products',
-    icon: Package,
-    path: '/dashboard/products',
-  },
-  {
-    id: 'kyc',
-    label: 'KYC Documents',
-    icon: FileCheck,
-    path: '/dashboard/kyc',
-  },
-  {
-    id: 'role-mgt',
-    label: 'Role Mgt',
-    icon: Users,
-    path: '/dashboard/role-management',
-  },
-  {
-    id: 'transaction',
-    label: 'Transaction',
-    icon: ArrowLeftRight,
-    path: '/dashboard/transactions',
-  },
-  {
-    id: 'invoicing',
-    label: 'Invoicing',
-    icon: FileText,
-    path: '/dashboard/invoice',
-    showSeparatorAfter: true,
-  },
-  {
-    id: 'wallet',
-    label: 'Wallet',
-    icon: Wallet,
-    path: '/dashboard/wallet',
-  },
-  {
-    id: 'settlements',
-    label: 'Settlements',
+    id: 'courses',
+    label: 'Explore Courses',
     icon: Banknote,
-    path: '/dashboard/settlements',
+    path: '/dashboard/courses',
   },
   {
-    id: 'split-config',
-    label: 'Split Config',
-    icon: Split,
-    path: '/dashboard/split-config',
+    id: 'billing',
+    label: 'Billing',
+    icon: Banknote,
+    path: '/dashboard/billing',
   },
   {
-    id: 'refund-disputes',
-    label: 'Refund & Disputes',
-    icon: RotateCcw,
-    path: '/dashboard/refund-disputes',
-    showSeparatorAfter: true,
-  },
-  {
-    id: 'developer',
-    label: 'Developer',
-    icon: Code,
-    path: '/dashboard/developer',
+    id: 'profile',
+    label: 'Profile',
+    icon: UserCircle,
+    path: '/dashboard/profile',
   },
 ];
 
@@ -155,7 +111,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
 
               {/* Logo */}
               <div className='p-6 border-b border-slate-200/50'>
-                <img src={LogoWhite} alt='SaukiPay' className='h-12 w-auto' />
+                <img src={LogoDark} alt='SaukiPay' className='h-12 w-auto' />
               </div>
 
               {/* Navigation */}
@@ -165,9 +121,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
                     <button
                       onClick={() => handleNavClick(item.path)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                        isActive(item.path)
-                          ? 'bg-primary text-secondary font-medium'
-                          : 'text-secondary hover:bg-slate-50'
+                        isActive(item.path) ? 'bg-primary text-white font-medium' : 'text-secondary hover:bg-slate-50'
                       }`}
                     >
                       <item.icon className='w-5 h-5 shrink-0 text-secondary' />
@@ -194,13 +148,13 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
             {collapsed ? (
               <img src={LogoIcon} alt='SaukiPay' className='w-auto h-10 transition-all duration-300' />
             ) : (
-              <img src={LogoWhite} alt='SaukiPay' className='w-auto h-12 transition-all duration-300' />
+              <img src={LogoDark} alt='SaukiPay' className='w-auto h-8 transition-all duration-300' />
             )}
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className='flex-1 p-4 space-y-1 overflow-y-auto'>
+        <nav className='flex-1 p-4 space-y-2 overflow-y-auto'>
           {navItems.map((item) => (
             <div key={item.id}>
               <button
@@ -208,11 +162,11 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
                 className={`w-full flex items-center ${
                   collapsed ? 'justify-center' : 'gap-3'
                 } px-3 py-2.5 rounded-lg transition-colors ${
-                  isActive(item.path) ? 'bg-primary text-secondary font-medium' : 'text-secondary hover:bg-slate-50'
+                  isActive(item.path) ? 'bg-primary text-white font-medium' : 'text-secondary hover:bg-slate-50'
                 }`}
                 title={collapsed ? item.label : ''}
               >
-                <item.icon className='w-5 h-5 flex-shrink-0 text-secondary' />
+                <item.icon className='w-5 h-5 shrink-0 text-secondary' />
                 {!collapsed && <span className='text-sm'>{item.label}</span>}
               </button>
               {item.showSeparatorAfter && !collapsed && <div className='my-2 border-t border-slate-200' />}

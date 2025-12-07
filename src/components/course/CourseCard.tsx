@@ -1,4 +1,5 @@
 import { BookOpen, Signal, Clock, CalendarDays, ArrowRight, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface prop {
   data: any;
@@ -6,6 +7,11 @@ interface prop {
 }
 export default function CourseCard({ data, style }: prop) {
   const { title, category, level, description, start_date, duration, image } = data;
+  const navigate = useNavigate();
+
+  const enrolNow = () => {
+    navigate(`/course/${data.id}`);
+  };
 
   if (style === 'card') {
     return (
@@ -52,7 +58,7 @@ export default function CourseCard({ data, style }: prop) {
         <div className='flex items-center justify-between p-4'>
           <span className='text-gray-700 font-medium text-sm'>{level}</span>
 
-          <button className='flex items-center gap-2 text-blue-600 font-semibold hover:underline'>
+          <button className='flex items-center gap-2 text-blue-600 font-semibold hover:underline' onClick={enrolNow}>
             Enroll <ArrowRight className='w-4 h-4' />
           </button>
         </div>

@@ -6,6 +6,7 @@ import { Search } from 'lucide-react';
 
 const List = [
   {
+    id: 'frontend-bootcamp',
     title: 'Frontend Bootcamp',
     description:
       'Fast track your career in frontend development through this 4-week masterclass and learn the from the industry best',
@@ -18,6 +19,7 @@ const List = [
       'https://store.altschoolafrica.com/docs/alt-Cybersecurity-Networking-and-System-Security-1757513056032639352.jpg',
   },
   {
+    id: 'fullstack-bootcamp',
     title: 'Fullstack Development',
     description:
       'Fast track your career in software development through this 12-week masterclass and learn the from the industry best',
@@ -29,6 +31,7 @@ const List = [
     image: 'https://res.cloudinary.com/talentql-inc/image/upload/v1692886356/website/school_of_engineering_skyqdn.png',
   },
   {
+    id: 'product-design',
     title: 'Product Design',
     description:
       'Fast track your career in product design through this 12-week masterclass and learn the from the industry best',
@@ -40,6 +43,7 @@ const List = [
     image: 'https://store.altschoolafrica.com/docs/alt-FoundationsofProductManagement-1757512719639089174.jpg',
   },
   {
+    id: 'customer-support',
     title: 'Customer Support',
     description:
       'Fast track your career in product design through this 12-week masterclass and learn the from the industry best',
@@ -57,7 +61,7 @@ const CourseList = () => {
     <>
       <NavBar />
       <main className=''>
-        <div className='mb-8 bg-secondary py-[50px] px-8'>
+        <div className='mb-8 bg-secondary py-[50px] px-8 pt-40'>
           <div className='max-w-xl mx-auto'>
             <h1 className='text-center mb-8 text-xl px-4 text-white'>
               Grow faster with expertly developed learning paths and courses

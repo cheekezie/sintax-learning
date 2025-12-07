@@ -24,7 +24,7 @@ const HomeHero = () => {
   });
 
   return (
-    <section className='bg-secondary py-[100px] px-8'>
+    <section className='bg-secondary py-[100px] px-8  pt-40'>
       <div className='mx-auto md:grid grid-cols-2  max-w-[1200px] items-center'>
         {/* LEFT CONTENT */}
         <motion.div

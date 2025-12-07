@@ -12,4 +12,4 @@ export { default as FeatureCard } from './FeatureCard';
 export { default as OTPInput } from './OTPInput';
 export { ToolTip } from './ToolTip';
 export { default as FilterModal } from './FilterModal';
-
+export { default as RegistrationSuccess } from './RegistrationSuccess';

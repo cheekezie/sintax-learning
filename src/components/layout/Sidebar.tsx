@@ -1,4 +1,4 @@
-import NewSidebar from "./NewSidebar";
+import NewSidebar from './NewSidebar';
 
 interface props {
   collapsed: boolean;
