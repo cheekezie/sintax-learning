@@ -44,12 +44,12 @@ export default function Footer() {
           <h3 className='text-lg font-semibold mb-4'>Company</h3>
           <ul className='space-y-3 text-gray-300 text-sm'>
             <li>
-              <Link to='/contact' className='hover:text-white transition'>
+              <Link to='/partners' className='hover:text-white transition'>
                 Our Partners
               </Link>
             </li>
             <li>
-              <Link to='/company' className='hover:text-white transition'>
+              <Link to='/instructor' className='hover:text-white transition'>
                 Become a trainer
               </Link>
             </li>

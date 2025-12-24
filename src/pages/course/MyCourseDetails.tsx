@@ -3,6 +3,7 @@ import LessonList from '../../components/course/LessonList';
 import Assignments from '../../components/course/Assignments';
 import Instrcutors from '../../components/course/Instructors';
 import Projects from '../../components/course/Projects';
+import PageHeader from '@/components/dashboard/PageHeader';
 
 const tabs = ['Lessons', 'Assignments', 'Projects', 'Instructors'];
 
@@ -30,6 +31,8 @@ export default function MyCourseDetails() {
 
   return (
     <div className='w-full space-y-8'>
+      <PageHeader title='My Lessons' />
+
       {/* Course Header Card */}
       <div className='w-full bg-white rounded-2xl border shadow-sm p-6'>
         <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-4'>

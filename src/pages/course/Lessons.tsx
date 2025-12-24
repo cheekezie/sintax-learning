@@ -1,11 +1,11 @@
 import LessonList from '@/components/course/LessonList';
+import PageHeader from '@/components/dashboard/PageHeader';
+import { ArrowLeft } from 'lucide-react';
 
 const Lessons = () => {
   return (
     <section>
-      <div className='flex items-center justify-between mb-4'>
-        <h2 className='text-2xl font-semibold'>My Lessons</h2>
-      </div>
+      <PageHeader title='My Lessons' />
 
       <LessonList />
     </section>

@@ -1,9 +1,8 @@
+import { useDecodedAuth } from '@/hooks/useDecodedAuth';
 import { Bell, ChevronDown, MenuIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
-import SwitchBusiness from '../merchant/SwitchBusiness';
 import Dropdown from './Dropdown';
 import ProfileDropdown from './ProfileDropdown';
-import { useDecodedAuth } from '@/hooks/useDecodedAuth';
 
 interface prop {
   onSidebarCollapse: () => void;
@@ -11,11 +10,8 @@ interface prop {
   sideBarCollapsed: boolean;
 }
 const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const [isLiveMode, setIsLiveMode] = useState(true); // true for live, false for demo
 
-  const triggerRef = useRef<HTMLButtonElement>(null);
   const profileTriggerRef = useRef<HTMLButtonElement>(null);
 
   const { user } = useDecodedAuth();
@@ -27,7 +23,7 @@ const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
         <div className='flex space-x-4 items-center'>
           {/* SIDEBAR TOGGLE BUTTON */}
           <button
-            className='hidden lg:block p-2 rounded-lg text-black hover:bg-slate-200 transition-colors !bg-transparent focus:outline-none cursor-pointer'
+            className='hidden lg:block p-2 rounded-lg text-black hover:bg-slate-200 transition-colors bg-transparent! focus:outline-none cursor-pointer'
             onClick={onSidebarCollapse}
           >
             <MenuIcon className='w-5 h-5' />
@@ -36,7 +32,7 @@ const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
           {/* MOBILE MENU TOGGLE BUTTON */}
 
           <button
-            className='lg:hidden p-2 rounded-lg text-black hover:bg-slate-200 transition-colors !bg-transparent focus:outline-none cursor-pointer'
+            className='lg:hidden p-2 rounded-lg text-black hover:bg-slate-200 transition-colors bg-transparent! focus:outline-none cursor-pointer'
             onClick={onMobileMenu}
           >
             <MenuIcon className='w-5 h-5' />

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import MyCourseCard from '../course/MyCourseCard';
-import PaymentReminder from '../payment/PaymentReminder';
+import MyCourseCard from '../../components/course/MyCourseCard';
+import PaymentReminder from '../../components/payment/PaymentReminder';
 
 const MyCourses: any[] = [
   {
@@ -49,14 +49,17 @@ const MyCourses: any[] = [
 
 export default function DashboardHome() {
   const navigate = useNavigate();
-  const payNow = () => {};
+
+  const payNow = () => {
+    navigate(`/billing`);
+  };
 
   const goToLessosns = () => {
-    navigate(`/dashboard/lessons`);
+    navigate(`/my-courses/lessons`);
   };
 
   return (
-    <div className='w-full p-8 space-y-10'>
+    <div className='w-full space-y-10'>
       <PaymentReminder title='You have outstanding payments' total={3000} paid={0} due={3000} onPayNow={payNow} />
 
       {/* My Courses */}
@@ -73,7 +76,7 @@ export default function DashboardHome() {
               title={course.title}
               lessonsDone={course.lessonsDone}
               totalLessons={course.totalLessons}
-              color='yellow'
+              color='white'
               avatars={course.avatars}
             />
           ))}

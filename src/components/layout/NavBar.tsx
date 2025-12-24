@@ -2,7 +2,10 @@ import { Logo } from '@/assets';
 import { Button } from '../ui';
 import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+interface prop {
+  showSearch?: boolean;
+}
+const NavBar = ({ showSearch = true }: prop) => {
   return (
     <nav className='min-h-12 px-8 py-3 bg-white border-b border-b-gray-200 fixed z-10 top-0 left-0 right-0'>
       <div className='container mx-auto flex items-center justify-between'>
@@ -14,13 +17,15 @@ const NavBar = () => {
         </div>
 
         {/* Search */}
-        <div className='md:flex-1 max-w-md mx-8 hidden md:block'>
-          <input
-            type='text'
-            placeholder='What are you learning today?'
-            className='w-full px-4 py-2 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-secondary text-sm'
-          />
-        </div>
+        {showSearch && (
+          <div className='md:flex-1 max-w-md mx-8 hidden md:block'>
+            <input
+              type='text'
+              placeholder='What are you learning today?'
+              className='w-full px-4 py-2 rounded-xl bg-gray-100 focus:outline-none focus:ring-2 focus:ring-secondary text-sm'
+            />
+          </div>
+        )}
 
         {/* Sign In */}
         <div className='flex w-[220px]'>

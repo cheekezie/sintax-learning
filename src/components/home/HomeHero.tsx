@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { HeroRight } from '@/assets';
+import { HeroRight, HeroRight2 } from '@/assets';
 import { Button } from '@/components/ui';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -53,7 +53,9 @@ const HomeHero = () => {
               <Button variant='accent-1'>Explore Courses</Button>
             </Link>
 
-            <Button className='border border-white ml-4'>For Businesses</Button>
+            <Link to={'/business'} className='w-full'>
+              <Button className='border border-white ml-4'>For Businesses</Button>
+            </Link>
           </div>
         </motion.div>
 

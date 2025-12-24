@@ -8,6 +8,7 @@ export interface prop {
   nextDueDate: string;
   totalAmount: number;
   paid: number;
+  onPayNow: () => void;
 }
 
 const statusColors: any = {
@@ -17,8 +18,7 @@ const statusColors: any = {
   completed: 'bg-green-100 text-green-700',
 };
 
-const BillingCard = ({ plan, title, totalAmount, status, amountDue, paid, nextDueDate }: prop) => {
-  const payNow = () => {};
+const BillingCard = ({ plan, title, totalAmount, status, amountDue, paid, nextDueDate, onPayNow }: prop) => {
   return (
     <div
       className={`p-5 rounded-2xl border bg-white relative overflow-hidden flex flex-col justify-between shadow-light`}
@@ -66,7 +66,7 @@ const BillingCard = ({ plan, title, totalAmount, status, amountDue, paid, nextDu
             Receipt <Download className='w-4 h-4' />
           </button>
 
-          <button className='bg-primary text-white text-md py-2 px-4 rounded-full flex items-center' onClick={payNow}>
+          <button className='bg-primary text-white text-md py-2 px-4 rounded-full flex items-center' onClick={onPayNow}>
             Pay Now
             <ArrowRight className='w-4 h-4 ml-2' />
           </button>

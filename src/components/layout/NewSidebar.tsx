@@ -1,22 +1,7 @@
 import { LogoDark, LogoIcon } from '@/assets';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-  ArrowLeftRight,
-  Banknote,
-  Code,
-  FileCheck,
-  FileText,
-  LayoutDashboard,
-  Package,
-  RotateCcw,
-  Split,
-  UserCircle,
-  Users,
-  Wallet,
-  X,
-  type LucideIcon,
-} from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Banknote, LayoutDashboard, UserCircle, X, type LucideIcon } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   collapsed: boolean;
@@ -38,27 +23,27 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     id: 'dashboard',
-    label: 'Dashboard',
+    label: 'My Enrolled Courses',
     icon: LayoutDashboard,
-    path: '/dashboard',
+    path: '/my-courses',
   },
   {
     id: 'courses',
     label: 'Explore Courses',
     icon: Banknote,
-    path: '/dashboard/courses',
+    path: '/courses',
   },
   {
     id: 'billing',
     label: 'Billing',
     icon: Banknote,
-    path: '/dashboard/billing',
+    path: '/billing',
   },
   {
     id: 'profile',
     label: 'Profile',
     icon: UserCircle,
-    path: '/dashboard/profile',
+    path: '/profile',
   },
 ];
 
@@ -111,7 +96,9 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
 
               {/* Logo */}
               <div className='p-6 border-b border-slate-200/50'>
-                <img src={LogoDark} alt='SaukiPay' className='h-12 w-auto' />
+                <Link to={'/'}>
+                  <img src={LogoDark} alt='sintax' className='h-12 w-auto' />
+                </Link>
               </div>
 
               {/* Navigation */}
@@ -124,7 +111,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
                         isActive(item.path) ? 'bg-primary text-white font-medium' : 'text-secondary hover:bg-slate-50'
                       }`}
                     >
-                      <item.icon className='w-5 h-5 shrink-0 text-secondary' />
+                      <item.icon className={`w-5 h-5 shrink-0 ${isActive(item.path) ? 'text-white' : 'text-black'}`} />
                       <span className='text-sm'>{item.label}</span>
                     </button>
                     {item.showSeparatorAfter && <div className='my-2 border-t border-slate-200' />}
@@ -145,11 +132,13 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
         {/* Logo */}
         <div className={`${collapsed ? 'p-4' : 'p-4'} border-b border-slate-200/50`}>
           <div className='flex items-center justify-center'>
-            {collapsed ? (
-              <img src={LogoIcon} alt='SaukiPay' className='w-auto h-10 transition-all duration-300' />
-            ) : (
-              <img src={LogoDark} alt='SaukiPay' className='w-auto h-8 transition-all duration-300' />
-            )}
+            <Link to={'/'}>
+              {collapsed ? (
+                <img src={LogoIcon} alt='sintax' className='w-auto h-10 transition-all duration-300' />
+              ) : (
+                <img src={LogoDark} alt='sintax' className='w-auto h-8 transition-all duration-300' />
+              )}
+            </Link>
           </div>
         </div>
 
@@ -166,7 +155,7 @@ const NewSidebar = ({ isMobileOpen, collapsed, onCloseMobileMenu }: SidebarProps
                 }`}
                 title={collapsed ? item.label : ''}
               >
-                <item.icon className='w-5 h-5 shrink-0 text-secondary' />
+                <item.icon className={`w-5 h-5 shrink-0 ${isActive(item.path) ? 'text-white' : 'text-black'}`} />
                 {!collapsed && <span className='text-sm'>{item.label}</span>}
               </button>
               {item.showSeparatorAfter && !collapsed && <div className='my-2 border-t border-slate-200' />}

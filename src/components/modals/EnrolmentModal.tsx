@@ -43,18 +43,6 @@ const EnrolmentModal = ({ isOpen, onClose }: props) => {
     updateFieldWithValidation(field, value, RegisterUserSchema);
   };
 
-  const back = async () => {
-    setStep(1);
-  };
-  const next = async () => {
-    if (step === 1) {
-      setStep(2);
-      return;
-    }
-    navigate(`/dashboard`);
-    // handleRegister();
-  };
-
   const handleRegister = async () => {
     try {
       //   setIsLoading(true);
@@ -66,7 +54,7 @@ const EnrolmentModal = ({ isOpen, onClose }: props) => {
       //     return;
       //   }
 
-      navigate(`/invoice/999`);
+      navigate(`/billing`);
       onClose();
     } catch (error: any) {
       setIsLoading(false);
@@ -81,7 +69,7 @@ const EnrolmentModal = ({ isOpen, onClose }: props) => {
       {isSuccess && (
         <RegistrationSuccess
           message={
-            'Welcome. Our team will keep in touch shortly with details and further information on your journey. Be rest assured you are in goo dhands'
+            'Welcome. Our team will keep in touch shortly with details and further information on your journey. Be rest assured you are in good hands'
           }
           onClose={handleClose}
         />
@@ -115,114 +103,100 @@ const EnrolmentModal = ({ isOpen, onClose }: props) => {
 
             {/* Content */}
             <div className='p-6 space-y-4 max-h-[70vh] overflow-y-auto'>
-              {step === 1 && (
-                <Form onSubmit={handleRegister}>
-                  <div className='grid grid-cols-1 md:grid-cols-3 gap-2 mb-4'>
-                    <Input
-                      label='First Name'
-                      name='first_name'
-                      type='text'
-                      required
-                      value={formData.first_name as string}
-                      onBlur={() => setTouched('first_name')}
-                      touched={touched.first_name}
-                      onChange={(value) => onValueChange('first_name', value)}
-                      placeholder='e.g Paschal'
-                      error={errors.first_name}
-                    />
-                    <Input
-                      label='Middle Name'
-                      name='other_name'
-                      type='text'
-                      value={formData.other_name as string}
-                      onBlur={() => setTouched('other_name')}
-                      touched={touched.other_name}
-                      onChange={(value) => onValueChange('other_name', value)}
-                      placeholder='e.g Ikenna'
-                      error={errors.other_name}
-                    />
-                    <Input
-                      label='Surname'
-                      name='last_name'
-                      type='text'
-                      required
-                      value={formData.last_name as string}
-                      onBlur={() => setTouched('last_name')}
-                      touched={touched.last_name}
-                      onChange={(value) => onValueChange('last_name', value)}
-                      placeholder='e.g Omeje'
-                      error={errors.last_name}
-                    />
-                  </div>
-
+              <Form onSubmit={handleRegister}>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-2 mb-4'>
                   <Input
-                    label='Email Address'
-                    name='email'
-                    type='email'
+                    label='First Name'
+                    name='first_name'
+                    type='text'
                     required
-                    value={formData.email as string}
-                    onBlur={() => setTouched('email')}
-                    touched={touched.email}
-                    onChange={(value) => onValueChange('email', value)}
-                    placeholder='e.g user@gmail.com'
-                    className='mb-4'
-                    error={errors.email}
+                    value={formData.first_name as string}
+                    onBlur={() => setTouched('first_name')}
+                    touched={touched.first_name}
+                    onChange={(value) => onValueChange('first_name', value)}
+                    placeholder='e.g Paschal'
+                    error={errors.first_name}
                   />
                   <Input
-                    label='Phone Number'
-                    name='phone'
-                    type='tel'
-                    required
-                    value={formData.phone as string}
-                    onBlur={() => setTouched('phone')}
-                    touched={touched.phone}
-                    onChange={(value) => onValueChange('phone', value)}
-                    placeholder='e.g 0706200000'
-                    className='mb-4'
-                    error={errors.phone}
+                    label='Middle Name'
+                    name='other_name'
+                    type='text'
+                    value={formData.other_name as string}
+                    onBlur={() => setTouched('other_name')}
+                    touched={touched.other_name}
+                    onChange={(value) => onValueChange('other_name', value)}
+                    placeholder='e.g Ikenna'
+                    error={errors.other_name}
                   />
-
-                  <Select
-                    label='Country'
-                    name='country'
+                  <Input
+                    label='Surname'
+                    name='last_name'
+                    type='text'
                     required
-                    value={formData.country as string}
-                    onBlur={() => setTouched('country')}
-                    touched={touched.gender}
-                    onChange={(value) => onValueChange('country', value)}
-                    options={COUNTRY_DATA}
-                    placeholder='-- Please select --'
-                    className='mb-4'
-                    error={errors.country}
+                    value={formData.last_name as string}
+                    onBlur={() => setTouched('last_name')}
+                    touched={touched.last_name}
+                    onChange={(value) => onValueChange('last_name', value)}
+                    placeholder='e.g Omeje'
+                    error={errors.last_name}
                   />
-
-                  <Select
-                    label='Location'
-                    name='location'
-                    required
-                    value={formData.gender as string}
-                    onBlur={() => setTouched('location')}
-                    touched={touched.gender}
-                    onChange={(value) => onValueChange('location', value)}
-                    options={NGERIAN_STATES_DATA}
-                    placeholder='-- Please select --'
-                    className='mb-4'
-                    error={errors.gender}
-                  />
-                </Form>
-              )}
-              {step === 2 && (
-                <div>
-                  <button
-                    onClick={back}
-                    disabled={isLoading}
-                    className='flex items-center gap-2 text-gray-700 hover:text-primary mb-6 self-start'
-                  >
-                    <ArrowLeft className='w-5 h-5' /> Back
-                  </button>
-                  <PaymentOptions />
                 </div>
-              )}
+
+                <Input
+                  label='Email Address'
+                  name='email'
+                  type='email'
+                  required
+                  value={formData.email as string}
+                  onBlur={() => setTouched('email')}
+                  touched={touched.email}
+                  onChange={(value) => onValueChange('email', value)}
+                  placeholder='e.g user@gmail.com'
+                  className='mb-4'
+                  error={errors.email}
+                />
+                <Input
+                  label='Phone Number'
+                  name='phone'
+                  type='tel'
+                  required
+                  value={formData.phone as string}
+                  onBlur={() => setTouched('phone')}
+                  touched={touched.phone}
+                  onChange={(value) => onValueChange('phone', value)}
+                  placeholder='e.g 0706200000'
+                  className='mb-4'
+                  error={errors.phone}
+                />
+
+                <Select
+                  label='Country'
+                  name='country'
+                  required
+                  value={formData.country as string}
+                  onBlur={() => setTouched('country')}
+                  touched={touched.gender}
+                  onChange={(value) => onValueChange('country', value)}
+                  options={COUNTRY_DATA}
+                  placeholder='-- Please select --'
+                  className='mb-4'
+                  error={errors.country}
+                />
+
+                <Select
+                  label='Location'
+                  name='location'
+                  required
+                  value={formData.gender as string}
+                  onBlur={() => setTouched('location')}
+                  touched={touched.gender}
+                  onChange={(value) => onValueChange('location', value)}
+                  options={NGERIAN_STATES_DATA}
+                  placeholder='-- Please select --'
+                  className='mb-4'
+                  error={errors.gender}
+                />
+              </Form>
             </div>
 
             {/* Footer */}
@@ -239,14 +213,13 @@ const EnrolmentModal = ({ isOpen, onClose }: props) => {
               </Button>
               <Button
                 type='button'
-                onClick={next}
+                onClick={handleRegister}
                 size='sm'
                 fullWidth={false}
                 disabled={!isValid || isLoading}
                 className='px-6'
               >
-                {step === 1 && 'Next'}
-                {step === 2 && <span>{isLoading ? 'Loading...' : ' Finish & Pay'}</span>}
+                {isLoading ? 'Loading...' : ' Submit'}
               </Button>
             </div>
           </div>
