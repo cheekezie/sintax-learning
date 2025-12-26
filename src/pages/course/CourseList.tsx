@@ -1,7 +1,9 @@
 import CourseCard from '@/components/course/CourseCard';
+import CourseCardSkeleton from '@/components/course/CourseCardSkeleton';
 import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
 import { Input } from '@/components/ui';
+import { useCoursePublic } from '@/hooks/course.hook';
 import { Search } from 'lucide-react';
 
 const List = [
@@ -57,6 +59,9 @@ const List = [
 ];
 const CourseList = () => {
   const searchChanged = () => {};
+
+  const { isLoading, isFetching, error, data } = useCoursePublic();
+
   return (
     <>
       <NavBar />
@@ -81,9 +86,12 @@ const CourseList = () => {
         <div className='px-8'>
           <div className='mx-auto max-w-[1200px]'>
             <div className='grid md:grid-cols-3 gap-6 mb-10'>
-              {List.map((item, index) => (
-                <CourseCard data={item} style='card' key={index} />
-              ))}
+              {/* ✅ Skeleton state */}
+              {(isLoading || isFetching) &&
+                Array.from({ length: 6 }).map((_, index) => <CourseCardSkeleton key={index} />)}
+
+              {/* ✅ Loaded state */}
+              {!isLoading && data?.courses.map((item, index) => <CourseCard data={item} style='card' key={index} />)}
             </div>
           </div>
         </div>

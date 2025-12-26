@@ -14,10 +14,10 @@ export function formatDate(
   format: 'short' | 'long' | 'time' | 'datetime' = 'short'
 ): string {
   if (!dateString) return '—';
-  
+
   try {
     const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-    
+
     if (isNaN(date.getTime())) {
       return '—';
     }
@@ -65,10 +65,10 @@ export function formatDate(
  */
 export function formatTimestamp(timestampString: string | undefined | null): string {
   if (!timestampString) return '—';
-  
+
   try {
     const date = new Date(timestampString);
-    
+
     if (isNaN(date.getTime())) {
       return '—';
     }
@@ -95,10 +95,10 @@ export function formatTimestamp(timestampString: string | undefined | null): str
  */
 export function formatRelativeTime(dateString: string | Date | undefined | null): string {
   if (!dateString) return '—';
-  
+
   try {
     const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-    
+
     if (isNaN(date.getTime())) {
       return '—';
     }
@@ -137,3 +137,52 @@ export function formatRelativeTime(dateString: string | Date | undefined | null)
   }
 }
 
+type DateInput = string | Date;
+
+const toDate = (date: DateInput): Date => (date instanceof Date ? date : new Date(date));
+
+/**
+ * Get difference in days between two dates
+ */
+export function diffInDays(from: DateInput, to: DateInput): number {
+  const start = toDate(from).getTime();
+  const end = toDate(to).getTime();
+
+  const diffMs = end - start;
+  return Math.max(Math.floor(diffMs / (1000 * 60 * 60 * 24)), 0);
+}
+
+/**
+ * Get difference in weeks between two dates
+ */
+export function diffInWeeks(from: DateInput, to: DateInput): number {
+  return Math.floor(diffInDays(from, to) / 7);
+}
+
+/**
+ * Get difference in months between two dates
+ * (calendar-aware)
+ */
+export function diffInMonths(from: DateInput, to: DateInput): number {
+  const start = toDate(from);
+  const end = toDate(to);
+
+  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+
+  if (end.getDate() < start.getDate()) {
+    months -= 1;
+  }
+
+  return Math.max(months, 0);
+}
+
+export function formatDuration(from: DateInput, to: DateInput) {
+  const months = Math.max(diffInMonths(from, to), 0);
+  const weeks = Math.max(diffInWeeks(from, to), 0);
+  const days = Math.max(diffInDays(from, to), 0);
+  return {
+    month: `${months} month${months > 1 ? 's' : ''}`,
+    week: `${weeks} week${weeks > 1 ? 's' : ''}`,
+    day: `${days} day${days > 1 ? 's' : ''}`,
+  };
+}

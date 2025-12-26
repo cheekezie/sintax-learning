@@ -1,3 +1,4 @@
+import LessonCalendar from '@/components/course/LessonCalendar';
 import LessonList from '@/components/course/LessonList';
 import PageHeader from '@/components/dashboard/PageHeader';
 import { ArrowLeft } from 'lucide-react';
@@ -7,7 +8,8 @@ const Lessons = () => {
     <section>
       <PageHeader title='My Lessons' />
 
-      <LessonList />
+      {/* <LessonList /> */}
+      <LessonCalendar />
     </section>
   );
 };

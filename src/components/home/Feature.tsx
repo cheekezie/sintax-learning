@@ -20,8 +20,8 @@ export default function Feature() {
               <path
                 d='M1 9.09366C33.2835 6.67458 150.795 1.96963 247 9.09368C197.061 9.09368 131.996 9.81404 90.1024 17.3186'
                 stroke='currentColor'
-                stroke-width='10'
-                stroke-linejoin='round'
+                strokeWidth='10'
+                strokeLinejoin='round'
               ></path>
             </svg>
           </div>
