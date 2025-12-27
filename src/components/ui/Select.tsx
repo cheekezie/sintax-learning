@@ -16,8 +16,14 @@ const Select = ({
   touched,
   helperText,
   className = '',
+  valueKey,
+  labelKey,
 }: SelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
+
+  const isObjectArray = () => {
+    return options.length > 0 && typeof options[0] === 'object';
+  };
 
   return (
     <div className={`space-y-2 ${className}`}>
@@ -50,11 +56,25 @@ const Select = ({
           <option key='placeholder' value=''>
             {placeholder}
           </option>
-          {options.map((option, index) => (
-            <option key={option.value || `option-${index}`} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+
+          {options.map((option, index) => {
+            if (isObjectArray()) {
+              const value = option[valueKey as keyof typeof option];
+              const label = option[labelKey as keyof typeof option];
+
+              return (
+                <option key={String(value)} value={String(value)} className='uppercase'>
+                  {label?.toLowerCase().replace(/\b\w/g, (c: string) => c.toUpperCase())}
+                </option>
+              );
+            }
+
+            return (
+              <option key={`option-${index}`} value={String(option)}>
+                {option?.toLowerCase().replace(/\b\w/g, (c: string) => c.toUpperCase())}
+              </option>
+            );
+          })}
         </select>
 
         {Icon && (

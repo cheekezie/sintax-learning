@@ -9,7 +9,7 @@ import { useCourseDetail } from '@/hooks/course.hook';
 import type { CurriculumI } from '@/interface';
 import { formatDate } from '@/utils/dateFormatter';
 import { formatCurrency } from '@/utils/formatCurrency';
-import { Banknote, BookOpen, Calendar, ChartColumn, Grid, StarIcon, TimerIcon } from 'lucide-react';
+import { Banknote, BookOpen, Calendar, ChartColumn, CheckCircle, Grid, StarIcon, TimerIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -66,7 +66,13 @@ export default function CourseDetailPage() {
 
   return (
     <>
-      <EnrolmentModal isOpen={isEnrolOpen} onClose={onClose} />
+      <EnrolmentModal
+        isOpen={isEnrolOpen}
+        locations={course?.locationAvailability ?? []}
+        availability={course?.availability ?? []}
+        onClose={onClose}
+      />
+
       <NavBar />
       <div className='space-y-10 mb-12 '>
         {/* Header */}
@@ -138,7 +144,7 @@ export default function CourseDetailPage() {
                         <StarIcon className='text-primary mr-2' size={16} />
                         <span>Course Level</span>
                       </div>
-                      <span className='text-right'>{course?.level}</span>
+                      <span className='text-right capitalize'>{course?.level}</span>
                     </div>
 
                     <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
@@ -179,6 +185,14 @@ export default function CourseDetailPage() {
                         <span>Category</span>
                       </div>
                       <span className='text-right capitalize'>{course?.category}</span>
+                    </div>
+
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <CheckCircle className='text-primary mr-2' size={16} />
+                        <span>Availability</span>
+                      </div>
+                      <span className='text-right capitalize'>{course?.availability?.join(', ')}</span>
                     </div>
 
                     <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>

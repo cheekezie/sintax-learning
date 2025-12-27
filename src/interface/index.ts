@@ -4,3 +4,4 @@ export * from './form.interface';
 export * from './user.interface';
 export * from './course.interface';
 export * from './course.interface';
+export * from './ui.interface';

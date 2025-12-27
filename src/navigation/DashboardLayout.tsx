@@ -9,12 +9,12 @@ export default function DashboardLayout() {
   const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('');
-  const { state } = useAuth();
+  const { isLoading } = useAuth();
 
   return (
     <div className='min-h-screen bg-secondary/5 transition-all duration-500 font-sora relative'>
       {/* Show loading overlay when auth is loading (e.g., during org switch) */}
-      {state.isLoading && (
+      {isLoading && (
         <div className='fixed inset-0 z-100 bg-white/80 backdrop-blur-sm flex items-center justify-center'>
           <ComponentLoading size='lg' />
         </div>

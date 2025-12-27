@@ -1,4 +1,4 @@
-import { useDecodedAuth } from '@/hooks/useDecodedAuth';
+import { useAuth } from '@/hooks';
 import { Bell, ChevronDown, MenuIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 import Dropdown from './Dropdown';
@@ -14,7 +14,7 @@ const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
 
   const profileTriggerRef = useRef<HTMLButtonElement>(null);
 
-  const { user } = useDecodedAuth();
+  const { user } = useAuth();
 
   return (
     <div className='bg-transparent border-b border-slate-200/50 px-4 sm:px-6 py-4'>

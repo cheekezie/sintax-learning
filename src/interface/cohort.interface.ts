@@ -17,6 +17,6 @@ export interface CohortI {
 
 export interface CoursePricngI {
   amount: number;
-  location: string;
+  country: string;
   currency: 'NGN' | 'GBP' | 'USD';
 }

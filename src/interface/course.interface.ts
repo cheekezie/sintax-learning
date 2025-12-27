@@ -26,6 +26,11 @@ export interface CourseI {
   cohortStartDate: string;
   cohortEndDate: string;
   pricing: CoursePricngI;
+  availability: ['online', 'in-person'];
+  locationAvailability?: {
+    country: string; // ISO code: 'NG', 'GB'
+    city: string; // 'Lagos', 'London'
+  }[];
 }
 export interface CurriculumI {
   title: string;
