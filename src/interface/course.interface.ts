@@ -12,11 +12,11 @@ export interface CourseI {
     name: string;
   };
   description: string;
-  level: string;
+  level: 'beginner' | 'intermediate' | 'advanced';
   learningOutcomes: string[];
   tags: string[];
   category: string;
-  curriculum: { title: string; outline: { lesson: string; order: number }[] }[];
+  curriculum: CurriculumI[];
   instructors: any[];
   learningMode: 'cohort' | 'on-demand' | 'hybrid';
   instrctirLed: boolean;
@@ -24,4 +24,22 @@ export interface CourseI {
   createdAt: string;
   cohortStartDate: string;
   cohortEndDate: string;
+}
+export interface CurriculumI {
+  title: string;
+  outline: { lesson: LessonI; order: number }[];
+}
+
+export interface LessonI {
+  title: string;
+  description: string;
+  curriculum: string;
+  modality: 'live' | 'self-paced';
+  delivery: 'online' | 'in-person';
+  mode: 'live-online' | 'in-person' | 'self-paced';
+  createdAt: Date;
+  order: number;
+  estimatedDuration: number;
+  resources: any[];
+  tags: string[];
 }

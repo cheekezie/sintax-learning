@@ -145,6 +145,9 @@ const toDate = (date: DateInput): Date => (date instanceof Date ? date : new Dat
  * Get difference in days between two dates
  */
 export function diffInDays(from: DateInput, to: DateInput): number {
+  if (!from || !to) {
+    return 0;
+  }
   const start = toDate(from).getTime();
   const end = toDate(to).getTime();
 
@@ -156,6 +159,9 @@ export function diffInDays(from: DateInput, to: DateInput): number {
  * Get difference in weeks between two dates
  */
 export function diffInWeeks(from: DateInput, to: DateInput): number {
+  if (!from || !to) {
+    return 0;
+  }
   return Math.floor(diffInDays(from, to) / 7);
 }
 
@@ -164,6 +170,9 @@ export function diffInWeeks(from: DateInput, to: DateInput): number {
  * (calendar-aware)
  */
 export function diffInMonths(from: DateInput, to: DateInput): number {
+  if (!from || !to) {
+    return 0;
+  }
   const start = toDate(from);
   const end = toDate(to);
 

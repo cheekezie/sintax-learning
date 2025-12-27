@@ -1,27 +1,19 @@
+import { CoursePlaceholder } from '@/assets';
+import CourseCardSkeleton from '@/components/course/CourseCardSkeleton';
+import CourseDetailSekeleton from '@/components/course/CourseDetailSekeleton';
 import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
 import EnrolmentModal from '@/components/modals/EnrolmentModal';
 import { Button } from '@/components/ui';
+import { useCourseDetail } from '@/hooks/course.hook';
+import type { CurriculumI } from '@/interface';
+import { formatDate } from '@/utils/dateFormatter';
 import { BookOpen, Calendar, ChartColumn, Grid, StarIcon, TimerIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-function Accordion() {
+function Accordion({ items }: { items: CurriculumI[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const items = [
-    {
-      title: 'Redux',
-      children: ['Hooks', 'Reducers', 'Introduction to state management'],
-    },
-    {
-      title: 'React',
-      children: ['Components', 'Hooks & lifecycle', 'State and props'],
-    },
-    {
-      title: 'Backend Development',
-      children: ['API Design', 'Authentication', 'Database modeling'],
-    },
-  ];
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -45,8 +37,8 @@ function Accordion() {
             }`}
           >
             <ul className='list-disc pl-6 space-y-1 text-gray-700'>
-              {item.children.map((child, i) => (
-                <li key={i}>{child}</li>
+              {item.outline.map((child, i) => (
+                <li key={i}>{child.lesson.title ?? `Outline ${index + 1}`}</li>
               ))}
             </ul>
           </div>
@@ -57,24 +49,30 @@ function Accordion() {
 }
 
 export default function CourseDetailPage() {
-  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [isEnrolOpen, setIsEnrolOpen] = useState(false);
+
+  const { id } = useParams();
+
+  const { course, isLoading, isFetching, isError } = useCourseDetail(id!);
 
   const onClose = () => {
-    setIsPaymentOpen(false);
+    setIsEnrolOpen(false);
   };
 
   const join = () => {
-    setIsPaymentOpen(true);
+    setIsEnrolOpen(true);
   };
 
   return (
     <>
-      <EnrolmentModal isOpen={isPaymentOpen} onClose={onClose} />
+      <EnrolmentModal isOpen={isEnrolOpen} onClose={onClose} />
       <NavBar />
       <div className='space-y-10 mb-12 '>
         {/* Header */}
         <header className='bg-[#0A1630] text-white py-16 px-6 text-center pt-40'>
-          <h1 className='text-4xl font-bold mb-3'>Full Stack Software Development</h1>
+          {!isFetching && <h1 className='text-4xl font-bold mb-3 capitalize'>{course?.title}</h1>}
+          {isFetching && <div className='h-8 bg-gray-200 rounded-xl w-1/2 mb-3 mx-auto animate-pulse' />}
+
           <p className='text-gray-300 text-lg max-w-2xl mx-auto'>
             Grow faster with expertly developed learning paths and live classes.
           </p>
@@ -82,112 +80,115 @@ export default function CourseDetailPage() {
 
         <div className='px-8'>
           <div className='mx-auto max-w-[1200px]'>
-            <div className='grid md:grid-cols-[1fr_400px] gap-8'>
-              <main>
-                <section>
-                  <div className='w-full h-70 bg-gray-200 rounded-xl overflow-hidden mb-8'>
-                    <img
-                      src='https://store.altschoolafrica.com/docs/alt-Cybersecurity-Networking-and-System-Security-1757513056032639352.jpg'
-                      alt='Course'
-                      className='w-full h-full object-cover'
-                    />
-                  </div>
-                </section>
-                <section className='space-y-3 mb-6'>
-                  <h2 className='text-base font-semibold'>About the Course</h2>
-                  <p className='text-gray-700 leading-relaxed'>
-                    This live course provides hands-on training in modern web development. You will build real projects,
-                    join live interactive classes, and receive mentorship throughout your learning journey. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Iure, vel nisi. Fuga obcaecati, veniam delectus
-                    asperiores maiores similique quae sit dolore tempora harum ipsum nulla facere quos labore!
-                    Temporibus, culpa.
-                  </p>
-                </section>
+            {isFetching && <CourseDetailSekeleton />}
 
-                {/* What You Will Learn */}
-                <section className='mb-6'>
-                  <h2 className='text-base font-semibold'>What You Will Learn</h2>
-                  <ul className='list-disc pl-6 space-y-1 text-gray-700'>
-                    <li>Frontend development with HTML, CSS, JavaScript & React</li>
-                    <li>Backend development with Node.js & Express</li>
-                    <li>APIs, databases, and authentication</li>
-                    <li>Version control with Git & GitHub</li>
-                    <li>Deployment & hosting</li>
-                    <li>Building full-scale applications from scratch</li>
-                  </ul>
-                </section>
+            {!isFetching && (
+              <div className='grid md:grid-cols-[1fr_400px] gap-8'>
+                <main>
+                  <section>
+                    <div className='w-full h-70 bg-gray-200 rounded-xl overflow-hidden mb-8'>
+                      <div className='relative overflow-hidden'>
+                        <img
+                          src={course?.bannerImage}
+                          alt='Course'
+                          className='w-full h-full object-cover'
+                          onError={(e) => {
+                            e.currentTarget.src = CoursePlaceholder;
+                          }}
+                        />
 
-                <section className=''>
-                  <h2 className='text-base font-semibold'>Course Curriculum</h2>
-                  <Accordion />
-                </section>
-              </main>
-              <aside className='sticky top-12  h-fit'>
-                <section className='shadow-light py-8 px-6'>
-                  <h2 className='text-secondary text-center mb-4 font-semibold'>
-                    N300,000{' '}
-                    <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
-                      25% OFF
-                    </span>
-                  </h2>
-
-                  <div className='border-b border-b-gray-200' />
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <StarIcon className='text-primary mr-2' size={16} />
-                      <span>Course Level</span>
+                        {/* Dark overlay */}
+                        <div className='absolute inset-0 bg-black/30' />
+                      </div>
                     </div>
-                    <span className='text-right'>Beginner</span>
-                  </div>
+                  </section>
+                  <section className='space-y-3 mb-6'>
+                    <h2 className='text-base font-semibold'>About the Course</h2>
+                    <p className='text-gray-700 leading-relaxed whitespace-pre-line'>{course?.description}</p>
+                  </section>
 
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <TimerIcon className='text-primary mr-2' size={16} />
-                      <span>Duration</span>
+                  {/* What You Will Learn */}
+                  <section className='mb-6'>
+                    <h2 className='text-base font-semibold'>What You Will Learn</h2>
+                    <ul className='list-disc pl-6 space-y-1 text-gray-700'>
+                      {course?.learningOutcomes.map((curr, index) => (
+                        <li key={index}>{curr}</li>
+                      ))}
+                    </ul>
+                  </section>
+
+                  <section className=''>
+                    <h2 className='text-base font-semibold'>Course Curriculum</h2>
+                    <Accordion items={course?.curriculum ?? []} />
+                  </section>
+                </main>
+                <aside className='sticky top-12  h-fit'>
+                  <section className='shadow-light py-8 px-6'>
+                    <h2 className='text-secondary text-center mb-4 font-semibold'>
+                      N300,000{' '}
+                      <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
+                        25% OFF
+                      </span>
+                    </h2>
+
+                    <div className='border-b border-b-gray-200' />
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <StarIcon className='text-primary mr-2' size={16} />
+                        <span>Course Level</span>
+                      </div>
+                      <span className='text-right'>{course?.level}</span>
                     </div>
-                    <span className='text-right'>12 Weeks</span>
-                  </div>
 
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <Calendar className='text-primary mr-2' size={16} />
-                      <span>Start Date</span>
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <TimerIcon className='text-primary mr-2' size={16} />
+                        <span>Duration</span>
+                      </div>
+                      <span className='text-right'>{course?.duration.week}</span>
                     </div>
-                    <span className='text-right'>12th January 2026</span>
-                  </div>
 
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <Grid className='text-primary mr-2' size={16} />
-                      <span>Units</span>
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <Calendar className='text-primary mr-2' size={16} />
+                        <span>Start Date</span>
+                      </div>
+                      <span className='text-right'>{formatDate(course?.cohortStartDate)}</span>
                     </div>
-                    <span className='text-right'>12</span>
-                  </div>
 
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <BookOpen className='text-primary mr-2' size={16} />
-                      <span>Lectures</span>
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <Grid className='text-primary mr-2' size={16} />
+                        <span>Units</span>
+                      </div>
+                      <span className='text-right'>{course?.units}</span>
                     </div>
-                    <span className='text-right'>20</span>
-                  </div>
 
-                  <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
-                    <div className='flex items-center'>
-                      <ChartColumn className='text-primary mr-2' size={16} />
-                      <span>Category</span>
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <BookOpen className='text-primary mr-2' size={16} />
+                        <span>Lectures</span>
+                      </div>
+                      <span className='text-right'>{course?.totalLessons}</span>
                     </div>
-                    <span className='text-right'>Software</span>
-                  </div>
 
-                  <div className='mt-8'>
-                    <Button size='sm' onClick={join}>
-                      Join Course
-                    </Button>
-                  </div>
-                </section>
-              </aside>
-            </div>
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <ChartColumn className='text-primary mr-2' size={16} />
+                        <span>Category</span>
+                      </div>
+                      <span className='text-right capitalize'>{course?.category}</span>
+                    </div>
+
+                    <div className='mt-8'>
+                      <Button size='md' onClick={join}>
+                        Join Course
+                      </Button>
+                    </div>
+                  </section>
+                </aside>
+              </div>
+            )}
           </div>
         </div>
       </div>

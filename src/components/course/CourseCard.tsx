@@ -1,12 +1,24 @@
+import { CoursePlaceholder } from '@/assets';
 import type { CourseI } from '@/interface';
 import { formatDate, formatDuration } from '@/utils/dateFormatter';
+import { number } from 'joi';
 import { BookOpen, Signal, Clock, CalendarDays, ArrowRight, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface prop {
-  data: CourseI;
+  data: CourseI & { totalLessons: number };
   style: 'card' | 'full';
 }
+
+const levelStyles: Record<string, string> = {
+  beginner: 'bg-green-500 text-white',
+  green: 'bg-green-500 text-white',
+  intermediate: 'bg-yellow-400 text-gray-900',
+  amber: 'bg-amber-400 text-gray-900',
+  advanced: 'bg-red-500 text-white',
+  red: 'bg-red-500 text-white',
+};
+
 export default function CourseCard({ data, style }: prop) {
   const {
     title,
@@ -14,6 +26,8 @@ export default function CourseCard({ data, style }: prop) {
     level,
     description,
     cohortDuration,
+    totalLessons,
+    learningMode,
     curriculum,
     owner,
     cohortStartDate,
@@ -39,7 +53,7 @@ export default function CourseCard({ data, style }: prop) {
               alt='Course'
               className='w-full h-full object-cover'
               onError={(e) => {
-                e.currentTarget.src = 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png';
+                e.currentTarget.src = CoursePlaceholder;
               }}
             />
 
@@ -57,9 +71,13 @@ export default function CourseCard({ data, style }: prop) {
             {curriculum.length} Units
           </span>
 
-          {/* Diploma Tag */}
-          <span className='absolute bottom-3 right-3 bg-yellow-400 text-gray-800 text-sm px-3 py-1 rounded-md shadow'>
-            Diploma
+          {/* Level Tag */}
+          <span
+            className={`absolute bottom-3 right-3 text-sm px-3 py-1 rounded-md shadow capitalize ${
+              levelStyles[level] ?? 'bg-gray-400 text-white'
+            }`}
+          >
+            {level}
           </span>
         </div>
 
@@ -70,13 +88,19 @@ export default function CourseCard({ data, style }: prop) {
           <p className='text-gray-500 text-sm mb-3 line-clamp-2'>{description}</p>
 
           <div className='flex'>
+            {learningMode === 'cohort' && (
+              <div className='flex items-center text-gray-600 text-sm gap-2 mr-3'>
+                <Calendar className='w-4 h-4' />
+                {formatDate(cohortStartDate, 'short')}
+              </div>
+            )}
             <div className='flex items-center text-gray-600 text-sm gap-2 mr-3'>
-              <Calendar className='w-4 h-4' />
-              {formatDate(cohortStartDate, 'short')}
-            </div>
-            <div className='flex items-center text-gray-600 text-sm gap-2'>
               <Clock className='w-4 h-4' />
               {week}
+            </div>
+            <div className='flex items-center text-gray-600 text-sm gap-2'>
+              <BookOpen className='w-4 h-4' />
+              {totalLessons} Lessons
             </div>
           </div>
         </div>
