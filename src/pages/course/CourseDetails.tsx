@@ -8,7 +8,8 @@ import { Button } from '@/components/ui';
 import { useCourseDetail } from '@/hooks/course.hook';
 import type { CurriculumI } from '@/interface';
 import { formatDate } from '@/utils/dateFormatter';
-import { BookOpen, Calendar, ChartColumn, Grid, StarIcon, TimerIcon } from 'lucide-react';
+import { formatCurrency } from '@/utils/formatCurrency';
+import { Banknote, BookOpen, Calendar, ChartColumn, Grid, StarIcon, TimerIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -87,7 +88,7 @@ export default function CourseDetailPage() {
                 <main>
                   <section>
                     <div className='w-full h-70 bg-gray-200 rounded-xl overflow-hidden mb-8'>
-                      <div className='relative overflow-hidden'>
+                      <div className='relative overflow-hidden h-full'>
                         <img
                           src={course?.bannerImage}
                           alt='Course'
@@ -125,7 +126,7 @@ export default function CourseDetailPage() {
                 <aside className='sticky top-12  h-fit'>
                   <section className='shadow-light py-8 px-6'>
                     <h2 className='text-secondary text-center mb-4 font-semibold'>
-                      N300,000{' '}
+                      {formatCurrency(course?.pricing.amount, course?.pricing.currency)}
                       <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
                         25% OFF
                       </span>
@@ -178,6 +179,14 @@ export default function CourseDetailPage() {
                         <span>Category</span>
                       </div>
                       <span className='text-right capitalize'>{course?.category}</span>
+                    </div>
+
+                    <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                      <div className='flex items-center'>
+                        <Banknote className='text-primary mr-2' size={16} />
+                        <span>Payment</span>
+                      </div>
+                      <span className='text-right capitalize'>Flexible</span>
                     </div>
 
                     <div className='mt-8'>

@@ -1,3 +1,4 @@
+import type { CoursePricngI } from './cohort.interface';
 import type { UserI } from './user.interface';
 
 export interface CourseI {
@@ -24,6 +25,7 @@ export interface CourseI {
   createdAt: string;
   cohortStartDate: string;
   cohortEndDate: string;
+  pricing: CoursePricngI;
 }
 export interface CurriculumI {
   title: string;

@@ -12,9 +12,11 @@ export interface CohortI {
     amount: number;
     currency: 'GBP' | 'USD' | 'NGN';
   };
-  pricing: {
-    amount: number;
-    location: string;
-    currency: 'NGN' | 'GBP' | 'USD';
-  }[];
+  pricing: CoursePricngI[];
+}
+
+export interface CoursePricngI {
+  amount: number;
+  location: string;
+  currency: 'NGN' | 'GBP' | 'USD';
 }
