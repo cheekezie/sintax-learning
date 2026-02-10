@@ -2,6 +2,9 @@ import courseService from '@/services/course.service';
 import { formatDuration } from '@/utils/dateFormatter';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAlert } from './alert.hook';
+import type { CourseEnquiryPayloadI } from '@/interface';
 
 export const useCreateCourse = () => {
   const queryClient = useQueryClient();
@@ -42,9 +45,69 @@ export function useCourseDetail(courseId: string) {
 
   return {
     course,
+    cohorts: data?.cohorts,
+    nextCohort: data?.nextCohort,
     isLoading,
     isFetching,
     isError,
     error,
   };
+}
+
+export function useCreateCourseEnquiry(onSuccessClose?: () => void) {
+  const { modalAlert, snackbar } = useAlert();
+
+  return useMutation({
+    mutationFn: (payload: CourseEnquiryPayloadI) => courseService.createEnquiry(payload),
+
+    onSuccess: (res) => {
+      modalAlert({
+        type: 'success',
+        message: res.message,
+      });
+
+      onSuccessClose?.(); // ✅ close modal
+    },
+
+    onError: (err: any) => {
+      snackbar({
+        type: 'error',
+        title: 'Request failed',
+        message: err?.message ?? 'Failed to submit enquiry',
+      });
+    },
+  });
+}
+
+export function useEnrolCourse(onSuccessClose?: () => void) {
+  const navigate = useNavigate();
+  const { modalAlert, snackbar } = useAlert();
+
+  return useMutation({
+    mutationFn: (payload: any) => courseService.enrolCourse(payload),
+
+    onSuccess: (res) => {
+      modalAlert({
+        type: 'success',
+        message: res.message,
+      });
+
+      onSuccessClose?.(); // ✅ close modal
+
+      // redirect to billing
+      navigate('/billing', {
+        replace: true,
+      });
+
+      // Save users login session
+    },
+
+    onError: (err: any) => {
+      snackbar({
+        type: 'error',
+        title: 'Request failed',
+        message: err?.message ?? 'Failed to submit enquiry',
+      });
+    },
+  });
 }

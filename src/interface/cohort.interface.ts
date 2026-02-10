@@ -1,4 +1,5 @@
 export interface CohortI {
+  _id: string;
   title: string;
   maxStudents: number;
   enrolledCount: number;

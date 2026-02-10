@@ -9,9 +9,19 @@ import { useCourseDetail } from '@/hooks/course.hook';
 import type { CurriculumI } from '@/interface';
 import { formatDate } from '@/utils/dateFormatter';
 import { formatCurrency } from '@/utils/formatCurrency';
-import { Banknote, BookOpen, Calendar, ChartColumn, CheckCircle, Grid, StarIcon, TimerIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  Banknote,
+  BookOpen,
+  Calendar,
+  ChartColumn,
+  CheckCircle,
+  Grid,
+  StarIcon,
+  TimerIcon,
+} from 'lucide-react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function Accordion({ items }: { items: CurriculumI[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -37,7 +47,7 @@ function Accordion({ items }: { items: CurriculumI[] }) {
               openIndex === index ? 'max-h-40 p-4' : 'max-h-0 p-0'
             }`}
           >
-            <ul className='list-disc pl-6 space-y-1 text-gray-700'>
+            <ul className='list-disc pl-6 space-y-1 text-gray-700 text-md mb-2'>
               {item.outline.map((child, i) => (
                 <li key={i}>{child.lesson.title ?? `Outline ${index + 1}`}</li>
               ))}
@@ -54,7 +64,7 @@ export default function CourseDetailPage() {
 
   const { id } = useParams();
 
-  const { course, isLoading, isFetching, isError } = useCourseDetail(id!);
+  const { course, nextCohort, isLoading, isFetching } = useCourseDetail(id!);
 
   const onClose = () => {
     setIsEnrolOpen(false);
@@ -70,11 +80,14 @@ export default function CourseDetailPage() {
         isOpen={isEnrolOpen}
         locations={course?.locationAvailability ?? []}
         availability={course?.availability ?? []}
+        courseId={id ?? ''}
+        currentCohort={nextCohort?._id ?? ''}
         onClose={onClose}
       />
 
       <NavBar />
-      <div className='space-y-10 mb-12 '>
+
+      <div className='space-y-8 mb-12 '>
         {/* Header */}
         <header className='bg-[#0A1630] text-white py-16 px-6 text-center pt-40'>
           {!isFetching && <h1 className='text-4xl font-bold mb-3 capitalize'>{course?.title}</h1>}
@@ -87,6 +100,12 @@ export default function CourseDetailPage() {
 
         <div className='px-8'>
           <div className='mx-auto max-w-[1200px]'>
+            <Link to={'/courses'} className='inline-block mb-3'>
+              <button className='flex items-center gap-2 text-black font-semibold'>
+                <ArrowLeft className='w-4 h-4' /> Back to Courses
+              </button>
+            </Link>
+
             {isFetching && <CourseDetailSekeleton />}
 
             {!isFetching && (
@@ -132,6 +151,7 @@ export default function CourseDetailPage() {
                 <aside className='sticky top-12  h-fit'>
                   <section className='shadow-light py-8 px-6'>
                     <h2 className='text-secondary text-center mb-4 font-semibold'>
+                      <span className='text-dark text-md'>From</span>{' '}
                       {formatCurrency(course?.pricing.amount, course?.pricing.currency)}
                       <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
                         25% OFF

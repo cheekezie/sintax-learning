@@ -1,57 +1,55 @@
-import { useState } from 'react';
-import type { SelectProps } from '../../interface';
+import * as React from 'react';
+import type { FieldError } from 'react-hook-form';
 
-const Select = ({
-  label,
-  name,
-  value,
-  onChange,
-  onBlur,
-  options,
-  placeholder = '-- Please select --',
-  icon: Icon,
-  required = false,
-  disabled = false,
-  error,
-  touched,
-  helperText,
-  className = '',
-  valueKey,
-  labelKey,
-}: SelectProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+  label?: string;
+  error?: FieldError;
+  options: any[];
+  placeholder?: string;
+  valueKey?: string;
+  labelKey?: string;
+  helperText?: string;
+}
 
-  const isObjectArray = () => {
-    return options.length > 0 && typeof options[0] === 'object';
-  };
+const Select = React.forwardRef<HTMLSelectElement, FormSelectProps>(
+  (
+    {
+      label,
+      error,
+      options,
+      placeholder = '-- Please select --',
+      disabled,
+      className,
+      valueKey,
+      labelKey,
+      helperText,
+      ...props
+    },
+    ref
+  ) => {
+    const isObjectArray = () => {
+      return options.length > 0 && typeof options[0] === 'object';
+    };
 
-  return (
-    <div className={`space-y-2 ${className}`}>
-      <label htmlFor={name} className='block text-sm font-medium text-foreground'>
-        {label}
-        {required && <span className='text-red-500 ml-1'>*</span>}
-      </label>
+    return (
+      <div className='space-y-1'>
+        {label && (
+          <label htmlFor={props.id ?? props.name} className='block text-sm font-medium'>
+            {label}
+          </label>
+        )}
 
-      <div className='relative'>
         <select
-          id={name}
-          name={name}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onBlur={() => {
-            setIsFocused(false);
-            onBlur?.();
-          }}
-          onFocus={() => setIsFocused(true)}
-          required={required}
+          ref={ref}
           disabled={disabled}
           className={`
-            w-full rounded-lg border px-4 py-3 text-sm transition-all duration-200
+            w-full rounded-md border px-3 py-2 text-sm
             focus:outline-none focus:ring-2 focus:ring-primary
-            ${Icon ? 'pl-12' : 'pl-4'}
-            ${error ? 'border-red-500 focus:ring-red-500' : isFocused ? 'border-primary' : 'border-gray-300'}
-            ${disabled ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'}
+            ${error ? 'border-red-500' : 'border-gray-300'}
+            ${disabled ? 'bg-gray-100 cursor-not-allowed text-gray-500' : 'bg-white'}
+            ${className ?? ''}
           `}
+          {...props}
         >
           <option key='placeholder' value=''>
             {placeholder}
@@ -77,16 +75,13 @@ const Select = ({
           })}
         </select>
 
-        {Icon && (
-          <Icon className='absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none' />
-        )}
+        {error && <p className='text-sm text-red-500'>{error.message}</p>}
+        {helperText && !error && <p className='text-xs text-muted-foreground'>{helperText}</p>}
       </div>
+    );
+  }
+);
 
-      {error && touched && <p className='text-red-500 text-sm flex items-center gap-1'>{error}</p>}
-
-      {helperText && !error && <p className='text-xs text-muted-foreground'>{helperText}</p>}
-    </div>
-  );
-};
+Select.displayName = 'FormSelect';
 
 export default Select;

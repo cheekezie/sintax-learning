@@ -9,6 +9,13 @@ class CourseService {
       CourseEndpoints.getCoursePublic
     );
   }
+  async createEnquiry(data: object) {
+    return await RequestService.post<ApiDataResI>(CourseEndpoints.enquiry, data);
+  }
+
+  async enrolCourse(data: object) {
+    return await RequestService.post<ApiDataResI>(CourseEndpoints.enrol, data);
+  }
 }
 
 export default new CourseService();

@@ -1,50 +1,41 @@
-import { useFormValidation, useToast } from '@/hooks';
-
 import { useAlert } from '@/hooks/alert.hook';
-import { RegisterUserSchema } from '@/schemas/register.schema';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Select } from '../ui';
-import Form from '../ui/Form';
-import Input from '../ui/Input';
-import ModalWrapper from './ModalWrapper';
-import TextInput from '../ui/TextInput';
-import { useForm } from 'react-hook-form';
+import { CourseEnquirySchema } from '@/schemas/course.schema';
+import courseService from '@/services/course.service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EnrolCourseSchema } from '@/schemas/course.schema';
-import { useEnrolCourse } from '@/hooks/course.hook';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { Textarea } from '../ui';
+import Form from '../ui/Form';
+import TextInput from '../ui/TextInput';
+import ModalWrapper from './ModalWrapper';
+import { useCreateCourseEnquiry } from '@/hooks/course.hook';
 
 interface props {
+  courseId: string;
   isOpen: boolean;
   onClose: () => void;
-  locations: any[];
-  courseId: string;
-  currentCohort: string;
-  availability: any[];
 }
 
-const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, currentCohort }: props) => {
-  const { snackbar, modalAlert } = useAlert();
-
+const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
   const {
     register,
     getValues,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(EnrolCourseSchema),
+    resolver: zodResolver(CourseEnquirySchema),
   });
 
   const handleClose = async () => {
     onClose();
   };
 
-  const { mutate, isPending } = useEnrolCourse(onClose);
+  const { mutate, isPending } = useCreateCourseEnquiry(onClose);
 
   const onSubmit = async () => {
     const payload = {
       ...getValues(),
-      cohort: currentCohort, // TO-DO: Let users select from list of cohorts
       courseId,
     };
     mutate(payload);
@@ -53,10 +44,11 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
   return (
     <>
       <ModalWrapper
-        title='Join Course'
+        title='Send Course Enquiry'
         onClose={handleClose}
         onSubmit={handleSubmit(onSubmit)}
         isOpen={isOpen}
+        isLoading={isPending}
         btnDisabled={isPending}
       >
         <form>
@@ -98,36 +90,11 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
             {...register('phone')}
             error={errors.phone}
           />
-
-          <Select
-            label='Class Format'
-            id='classFormat'
-            required
-            options={availability}
-            placeholder='-- Please select --'
-            className='mb-4'
-            {...register('deliveryMode')}
-            error={errors.deliveryMode}
-          />
-
-          {availability.includes('in-person') && (
-            <Select
-              label='Location'
-              id='location'
-              required
-              options={locations}
-              valueKey='city'
-              labelKey='city'
-              placeholder='-- Please select --'
-              className='mb-4'
-              {...register('city')}
-              error={errors.city}
-            />
-          )}
+          <Textarea label='Message' placeholder='your enquiry here' {...register('message')} error={errors.message} />
         </form>
       </ModalWrapper>
     </>
   );
 };
 
-export default EnrolmentModal;
+export default CourseEnquiryModal;

@@ -1,13 +1,13 @@
 import { CoursePlaceholder } from '@/assets';
 import type { CourseI } from '@/interface';
 import { formatDate, formatDuration } from '@/utils/dateFormatter';
-import { number } from 'joi';
-import { BookOpen, Signal, Clock, CalendarDays, ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar, CalendarDays, Clock, Mail, Signal } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface prop {
   data: CourseI & { totalLessons: number };
   style: 'card' | 'full';
+  onEnquire?: (id: string) => void;
 }
 
 const levelStyles: Record<string, string> = {
@@ -19,7 +19,7 @@ const levelStyles: Record<string, string> = {
   red: 'bg-red-500 text-white',
 };
 
-export default function CourseCard({ data, style }: prop) {
+export default function CourseCard({ data, style, onEnquire }: prop) {
   const {
     title,
     category,
@@ -42,9 +42,25 @@ export default function CourseCard({ data, style }: prop) {
     navigate(`/course/${data._id}`);
   };
 
+  const enquire = (ev: any) => {
+    ev.stopPropagation();
+
+    if (onEnquire) {
+      onEnquire(data._id);
+    }
+  };
+
+  const onCardSelect = (ev: any) => {
+    ev.stopPropagation();
+    enrolNow();
+  };
+
   if (style === 'card') {
     return (
-      <div className='w-full max-w-sm bg-white rounded-3xl shadow-md overflow-hidden border'>
+      <div
+        className='w-full max-w-sm bg-white rounded-3xl shadow-md overflow-hidden border cursor-pointer'
+        onClick={onCardSelect}
+      >
         {/* IMAGE + TAGS */}
         <div className='relative'>
           <div className='relative w-full h-40 overflow-hidden'>
@@ -107,7 +123,9 @@ export default function CourseCard({ data, style }: prop) {
 
         {/* FOOTER */}
         <div className='flex items-center justify-between p-4'>
-          <span className='text-gray-700 font-medium text-sm'>{level}</span>
+          <button className='flex items-center gap-2 text-black font-semibold hover:underline' onClick={enquire}>
+            <Mail className='w-4 h-4' /> Enquire
+          </button>
 
           <button className='flex items-center gap-2 text-blue-600 font-semibold hover:underline' onClick={enrolNow}>
             Enroll <ArrowRight className='w-4 h-4' />

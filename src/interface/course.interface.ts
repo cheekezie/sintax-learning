@@ -50,3 +50,23 @@ export interface LessonI {
   resources: any[];
   tags: string[];
 }
+
+export interface CourseEnquiryPayloadI {
+  firstName: string;
+  lastName: string;
+  otherName: string;
+  email: string;
+  phone: string;
+  message: string;
+  courseId: string;
+}
+export interface CourseRegisterPayloadI {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  deliveryMode: string;
+  city: string;
+  otherName: string;
+  courseId: string;
+}

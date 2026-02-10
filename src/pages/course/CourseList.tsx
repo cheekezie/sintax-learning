@@ -2,17 +2,28 @@ import CourseCard from '@/components/course/CourseCard';
 import CourseCardSkeleton from '@/components/course/CourseCardSkeleton';
 import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
+import CourseEnquiryModal from '@/components/modals/CourseEnquiryModal';
 import { Input } from '@/components/ui';
 import { useCoursePublic } from '@/hooks/course.hook';
 import { Search } from 'lucide-react';
+import { useState } from 'react';
 
 const CourseList = () => {
+  const [enquireOpen, setEnquireOpen] = useState(false);
+  const [courseId, setCourseId] = useState('');
   const searchChanged = () => {};
 
   const { isLoading, isFetching, error, data } = useCoursePublic();
 
+  const onEnquire = (id: string) => {
+    setEnquireOpen(!enquireOpen);
+    setCourseId(id);
+  };
+
   return (
     <>
+      <CourseEnquiryModal isOpen={enquireOpen} courseId={courseId} onClose={() => setEnquireOpen(false)} />
+
       <NavBar />
       <main className=''>
         <div className='mb-8 bg-secondary py-[50px] px-8 pt-40'>
@@ -40,7 +51,10 @@ const CourseList = () => {
                 Array.from({ length: 6 }).map((_, index) => <CourseCardSkeleton key={index} />)}
 
               {/* ✅ Loaded state */}
-              {!isLoading && data?.courses.map((item, index) => <CourseCard data={item} style='card' key={index} />)}
+              {!isLoading &&
+                data?.courses.map((item, index) => (
+                  <CourseCard data={item} style='card' key={index} onEnquire={onEnquire} />
+                ))}
             </div>
           </div>
         </div>

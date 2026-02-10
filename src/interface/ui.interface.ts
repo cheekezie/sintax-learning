@@ -336,3 +336,28 @@ export interface DataTableProps<T = any> {
     y?: number | string;
   };
 }
+
+export type AlertType = 'success' | 'error' | 'warning' | 'info';
+export type AlertView = 'modal' | 'snackbar';
+
+export type AlertPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+
+export interface AlertConfigI {
+  id?: string;
+  type: AlertType;
+  title?: string;
+  message: string;
+  view?: AlertView;
+  position?: AlertPosition;
+  autoDismiss?: boolean;
+  duration?: number; // ms
+}
+
+export interface ToastContextType {
+  showToast: (toast: Omit<Toast, 'id'>) => void;
+  showSuccess: (title: string, message?: string) => void;
+  showError: (title: string, message?: string) => void;
+  showWarning: (title: string, message?: string) => void;
+  showInfo: (title: string, message?: string) => void;
+  removeToast: (id: string) => void;
+}

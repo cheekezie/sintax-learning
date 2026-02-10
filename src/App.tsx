@@ -8,6 +8,7 @@ import { GlobalErrorProvider, ModalProvider, OnboardingProvider, OrgProvider, To
 import ReactQueryProvider from './providers/ReactQueryProvider';
 import { AppRoutes } from './routes';
 import { AuthProvider } from './contexts/AuthProvider';
+import { AlertProvider } from './contexts/AlertProvider';
 
 function App() {
   return (
@@ -15,14 +16,16 @@ function App() {
       <GlobalErrorProvider>
         <Router>
           <ToastProvider>
-            <ModalProvider>
-              <AuthProvider>
-                <ReactQueryProvider>
-                  <AppRoutes />
-                  <ModalContainer />
-                </ReactQueryProvider>
-              </AuthProvider>
-            </ModalProvider>
+            <AlertProvider>
+              <ModalProvider>
+                <AuthProvider>
+                  <ReactQueryProvider>
+                    <AppRoutes />
+                    <ModalContainer />
+                  </ReactQueryProvider>
+                </AuthProvider>
+              </ModalProvider>
+            </AlertProvider>
           </ToastProvider>
         </Router>
       </GlobalErrorProvider>

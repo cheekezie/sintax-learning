@@ -1,61 +1,40 @@
-import type { TextareaProps } from "../../interface";
+import * as React from 'react';
+import type { FieldError } from 'react-hook-form';
 
-const Textarea = ({
-  label,
-  name,
-  placeholder,
-  value,
-  onChange,
-  onBlur,
-  maxLength,
-  required = false,
-  disabled = false,
-  error,
-  helperText,
-  className = "",
-  rows = 4,
-}: TextareaProps) => {
-  return (
-    <div className={`space-y-2 ${className}`}>
-      {label && (
-        <label
-          htmlFor={name}
-          className="block text-sm font-medium text-foreground"
-        >
-          {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
-        </label>
-      )}
+interface FormTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label?: string;
+  error?: FieldError;
+}
 
-      <textarea
-        id={name}
-        name={name}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onBlur={onBlur}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        required={required}
-        disabled={disabled}
-        rows={rows}
-        className={`
-          w-full rounded-lg border px-4 py-4 transition-all duration-200 border-gray-700
-          focus:outline-none focus:ring-1 focus:ring-primary
-          ${error ? "border-red-500 focus:ring-red-500" : "border-gray-300"}
-          ${disabled ? "bg-gray-50 cursor-not-allowed" : "bg-white"}
-          resize-none
+const TextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
+  ({ label, error, disabled, className, ...props }, ref) => {
+    return (
+      <div className='space-y-1 mb-3'>
+        {label && (
+          <label htmlFor={props.id ?? props.name} className='block text-sm font-medium'>
+            {label}
+          </label>
+        )}
+
+        <textarea
+          ref={ref}
+          disabled={disabled}
+          className={`
+          w-full rounded-md border px-4 py-3 text-sm resize-none
+          focus:outline-none focus:ring-2 focus:ring-primary
+          ${error ? 'border-red-500' : 'border-gray-300'}
+          ${disabled ? 'bg-gray-100 cursor-not-allowed text-gray-500' : 'bg-white'}
+          ${className ?? ''}
         `}
-      />
+          {...props}
+        />
 
-      {error && (
-        <p className="text-red-500 text-sm flex items-center gap-1">{error}</p>
-      )}
+        {error && <p className='text-sm text-red-500'>{error.message}</p>}
+      </div>
+    );
+  }
+);
 
-      {helperText && !error && (
-        <p className="text-xs text-muted-foreground">{helperText}</p>
-      )}
-    </div>
-  );
-};
+TextArea.displayName = 'TextArea';
 
-export default Textarea;
+export default TextArea;

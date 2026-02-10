@@ -9,6 +9,7 @@ interface prop {
   isLoading?: boolean;
   btnDisabled?: boolean;
   submitBtnLabel?: string;
+  title?: string;
   onClose: () => void;
   onSubmit?: () => void;
 }
@@ -19,6 +20,7 @@ const ModalWrapper = ({
   btnDisabled,
   onSubmit,
   onClose,
+  title,
   submitBtnLabel = 'Submit',
 }: prop) => {
   useEffect(() => {
@@ -60,7 +62,7 @@ const ModalWrapper = ({
         >
           {/* Header */}
           <div className='flex items-center justify-between p-6 border-b border-gray-200'>
-            <h2 className='text-2xl font-semibold text-gray-900'>Join Course</h2>
+            <h2 className='text-2xl font-semibold text-gray-900'>{title}</h2>
             <button
               onClick={onClose}
               className='p-2 rounded-lg transition-colors hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer'
