@@ -34,8 +34,11 @@ const Button = ({
   size = 'md',
   ...props
 }: ButtonProps) => {
-  const baseClasses =
-    'inline-flex items-center justify-center rounded-[36px] font-medium transition-colors focus:outline-none focus:ring-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = `inline-flex items-center justify-center rounded-[12px] font-medium 
+    focus:outline-none focus:ring-2 cursor-pointer disabled:opacity-50 ease-in
+    disabled:cursor-not-allowed transition-all duration-200 ease-out
+    hover:-translate-y-0.5 hover:bg-black/90 hover:shadow-lg
+    active:translate-y-0 active:scale-[0.99] active:shadow-md`;
 
   const classes = [fullWidth ? 'w-full' : '', baseClasses, variantClasses[variant], sizeClasses[size], className]
     .filter(Boolean)

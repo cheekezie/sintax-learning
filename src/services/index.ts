@@ -1,5 +1,5 @@
 // API Client
-export { RequestService, ApiError, generateSignature } from './api/client';
+export { RequestService, ApiError } from './api/client';
 
 // API Endpoints
 export * from './api/endpoints';

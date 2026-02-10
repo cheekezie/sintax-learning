@@ -9,24 +9,24 @@ import ReactQueryProvider from './providers/ReactQueryProvider';
 import { AppRoutes } from './routes';
 import { AuthProvider } from './contexts/AuthProvider';
 import { AlertProvider } from './contexts/AlertProvider';
+import { AlertBridge } from './utils/alert-bridge';
 
 function App() {
   return (
     <ErrorBoundary>
       <GlobalErrorProvider>
         <Router>
-          <ToastProvider>
-            <AlertProvider>
-              <ModalProvider>
-                <AuthProvider>
-                  <ReactQueryProvider>
-                    <AppRoutes />
-                    <ModalContainer />
-                  </ReactQueryProvider>
-                </AuthProvider>
-              </ModalProvider>
-            </AlertProvider>
-          </ToastProvider>
+          <AlertProvider>
+            <AlertBridge />
+            <ModalProvider>
+              <AuthProvider>
+                <ReactQueryProvider>
+                  <AppRoutes />
+                  <ModalContainer />
+                </ReactQueryProvider>
+              </AuthProvider>
+            </ModalProvider>
+          </AlertProvider>
         </Router>
       </GlobalErrorProvider>
     </ErrorBoundary>

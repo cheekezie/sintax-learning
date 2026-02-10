@@ -1,5 +1,5 @@
-import Joi from "joi";
-import { emailSchema } from "./authSchemas";
+import Joi from 'joi';
+import { emailSchema } from './auth.schema';
 
 /**
  * Organization Registration Schema for Dashboard
@@ -16,7 +16,7 @@ export const organizationRegistrationSchema = Joi.object({
       'string.max': 'Organization name must not exceed 200 characters',
       'string.pattern.base': 'Organization name contains invalid characters',
       'string.empty': 'Organization name is required',
-      'any.required': 'Organization name is required'
+      'any.required': 'Organization name is required',
     })
     .required(),
   organizationCategory: Joi.string()
@@ -24,7 +24,7 @@ export const organizationRegistrationSchema = Joi.object({
     .messages({
       'any.only': 'Please select a valid organization category',
       'string.empty': 'Organization category is required',
-      'any.required': 'Organization category is required'
+      'any.required': 'Organization category is required',
     })
     .required(),
   schoolType: Joi.string()
@@ -32,39 +32,38 @@ export const organizationRegistrationSchema = Joi.object({
     .when(Joi.ref('organizationCategory'), {
       is: 'school',
       then: Joi.required(),
-      otherwise: Joi.optional()
+      otherwise: Joi.optional(),
     })
     .messages({
       'any.only': 'Please select a valid school type',
       'string.empty': 'School type is required',
-      'any.required': 'School type is required'
+      'any.required': 'School type is required',
     }),
   schoolCategoryBoard: Joi.string()
     .valid(
-      'privateSchool', 
-      'methodistSchool', 
-      'anglicanSchool', 
-      'catholicSchool', 
-      'publicPrimarySchool', 
-      'publicSecondarySchool', 
-      'publicTechnicalSchool', 
-      'unitySchool', 
-      'nonCategory', 
-      'adultEducation', 
-      'university', 
-      'polytechnic', 
-      'islamic', 
-      'coe'
+      'privateSchool',
+      'methodistSchool',
+      'anglicanSchool',
+      'catholicSchool',
+      'publicPrimarySchool',
+      'publicSecondarySchool',
+      'publicTechnicalSchool',
+      'unitySchool',
+      'nonCategory',
+      'adultEducation',
+      'university',
+      'polytechnic',
+      'islamic',
+      'coe',
     )
     .when(Joi.ref('organizationCategory'), {
       is: 'school',
       then: Joi.required(),
-      otherwise: Joi.optional()
+      otherwise: Joi.optional(),
     })
     .messages({
       'any.only': 'Please select a valid school category board',
       'string.empty': 'School category board is required',
-      'any.required': 'School category board is required'
-    })
+      'any.required': 'School category board is required',
+    }),
 });
-

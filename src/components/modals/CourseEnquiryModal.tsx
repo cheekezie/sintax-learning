@@ -1,15 +1,10 @@
-import { useAlert } from '@/hooks/alert.hook';
+import { useCreateCourseEnquiry } from '@/hooks/course.hook';
 import { CourseEnquirySchema } from '@/schemas/course.schema';
-import courseService from '@/services/course.service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { Textarea } from '../ui';
-import Form from '../ui/Form';
 import TextInput from '../ui/TextInput';
 import ModalWrapper from './ModalWrapper';
-import { useCreateCourseEnquiry } from '@/hooks/course.hook';
 
 interface props {
   courseId: string;

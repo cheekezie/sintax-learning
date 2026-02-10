@@ -7,8 +7,8 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 /* @suppress */
 @theme {
-  --color-primary: #ff6b00;
-  --color-primary-light: #f68a3b;
+  --color-primary: #101935;
+  --color-primary-light: #669332;
   --color-primary-50: #fff4ec;
   --color-primary-100: #ffe6d4;
   --color-primary-200: #ffcaa8;
@@ -20,7 +20,7 @@
   --color-primary-800: #993f00;
   --color-primary-900: #7a3200;
 
-  --color-secondary: #101935;
+  --color-secondary: #0a413e;
   --color-secondary-50: #eef1f7;
   --color-secondary-100: #d6dcec;
   --color-secondary-200: #b0bddc;
@@ -53,14 +53,15 @@
   --text-md: 14px;
   --text-sm: 12px;
   --text-xsm: 10px;
-  --font-family-sans: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-sans:
+    'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Fallback CSS custom properties for compatibility */
 :root {
-  --color-primary: #ff6b00;
-  --color-primary-light: #f68a3b;
-  --color-secondary: #101935;
+  --color-primary: #669332;
+  --color-primary-light: #188883;
+  --color-secondary: #0a413e;
   --color-bg: #ffffff;
   --color-text: #0f172a;
   --color-dark: #505050;

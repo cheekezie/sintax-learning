@@ -1,11 +1,10 @@
-import MyCourseDetails from '@/pages/course/MyCourseDetails';
 import { ComponentLoading } from '@/components/ui/LoadingSpinner';
+import MyCourseDetails from '@/pages/course/MyCourseDetails';
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const Home = React.lazy(() => import('../pages/Home'));
 const Login = React.lazy(() => import('../pages/auth/Login'));
-const LoginAlt = React.lazy(() => import('../pages/auth/LoginAlt'));
 const FaqPage = React.lazy(() => import('../pages/FaqPage'));
 const NotFound = React.lazy(() => import('../pages/NotFound'));
 const CourseList = React.lazy(() => import('../pages/course/CourseList'));
@@ -35,7 +34,7 @@ export const AppRoutes = () => {
         path='/'
         element={
           <LazyRoute>
-            <Home />
+            <Login />
           </LazyRoute>
         }
       />
@@ -44,15 +43,6 @@ export const AppRoutes = () => {
         element={
           <LazyRoute>
             <CourseList />
-          </LazyRoute>
-        }
-      />
-      <Route
-        path='/login'
-        element={
-          <LazyRoute>
-            {/* <Login /> */}
-            <LoginAlt />
           </LazyRoute>
         }
       />

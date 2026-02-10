@@ -24,6 +24,14 @@ export function useAlert() {
         ...config,
       }),
 
+    modal: (config: Omit<AlertConfigI, 'view'>) =>
+      show({
+        view: 'modal',
+        autoDismiss: true,
+        duration: 4000,
+        ...config,
+      }),
+
     close,
   };
 }

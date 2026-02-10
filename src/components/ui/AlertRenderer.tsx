@@ -1,4 +1,5 @@
 import type { AlertConfigI } from '@/interface';
+import { notify } from '@/utils/alert-bridge';
 
 const icon = (type: string) => (type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ');
 
@@ -8,7 +9,7 @@ const iconBg = (type: string) =>
     error: 'bg-red-100',
     warning: 'bg-orange-100',
     info: 'bg-blue-100',
-  }[type]);
+  })[type];
 
 const iconColor = (type: string) =>
   ({
@@ -16,7 +17,7 @@ const iconColor = (type: string) =>
     error: 'text-red-500',
     warning: 'text-orange-500',
     info: 'text-blue-500',
-  }[type]);
+  })[type];
 
 const snackbarBg = (type: string) =>
   ({
@@ -24,7 +25,7 @@ const snackbarBg = (type: string) =>
     error: 'bg-red-500 text-white',
     warning: 'bg-orange-500 text-white',
     info: 'bg-blue-500 text-white',
-  }[type]);
+  })[type];
 
 const positionClass = (pos = 'top-right') =>
   ({
@@ -34,15 +35,22 @@ const positionClass = (pos = 'top-right') =>
     'bottom-left': 'bottom-6 left-6',
     'top-center': 'top-6 left-1/2 -translate-x-1/2',
     'bottom-center': 'bottom-6 left-1/2 -translate-x-1/2',
-  }[pos]);
+  })[pos];
 
 export function AlertRenderer({ alert, onClose }: { alert: AlertConfigI | null; onClose: () => void }) {
+  const close = () => {
+    notify.close();
+  };
+
   if (!alert) return null;
 
   if (alert.view === 'modal') {
     return (
       <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4'>
-        <div className='max-w-[542px] w-full bg-white rounded-2xl shadow-md px-8 py-6 text-center border'>
+        <div
+          className='max-w-[542px] w-full bg-white rounded-2xl shadow-md px-8 py-6 text-center border cursor-pointer'
+          onClick={close}
+        >
           <div
             className={`h-20 w-20 rounded-full mx-auto mb-3 flex items-center justify-center
               ${iconBg(alert.type)}`}
@@ -67,9 +75,10 @@ export function AlertRenderer({ alert, onClose }: { alert: AlertConfigI | null; 
   // Snackbar
   return (
     <div
-      className={`fixed z-50 px-4 py-3 rounded-lg shadow-md w-[90%] md:w-[400px]
+      className={`fixed z-50 px-4 py-3 rounded-lg shadow-md w-[90%] md:w-[400px] cursor-pointer
         ${positionClass(alert.position)}
         ${snackbarBg(alert.type)}`}
+      onClick={close}
     >
       {alert.title && <strong className='text-md'>{alert.title}</strong>}
       <p className='text-sm'>{alert.message}</p>

@@ -1,18 +1,10 @@
-import { useFormValidation, useToast } from '@/hooks';
-
-import { useAlert } from '@/hooks/alert.hook';
-import { RegisterUserSchema } from '@/schemas/register.schema';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Select } from '../ui';
-import Form from '../ui/Form';
-import Input from '../ui/Input';
-import ModalWrapper from './ModalWrapper';
-import TextInput from '../ui/TextInput';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { EnrolCourseSchema } from '@/schemas/course.schema';
 import { useEnrolCourse } from '@/hooks/course.hook';
+import { EnrolCourseSchema } from '@/schemas/course.schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Select } from '../ui';
+import TextInput from '../ui/TextInput';
+import ModalWrapper from './ModalWrapper';
 
 interface props {
   isOpen: boolean;
@@ -24,8 +16,6 @@ interface props {
 }
 
 const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, currentCohort }: props) => {
-  const { snackbar, modalAlert } = useAlert();
-
   const {
     register,
     getValues,
