@@ -119,8 +119,8 @@ export class ErrorBoundary extends Component<Props, State> {
           <div className='mt-8 pt-6 border-t border-gray-100 text-sm text-gray-500'>
             <p>
               If this persists, contact{' '}
-              <a href='mailto:support@saukipay.net' className='text-primary hover:underline'>
-                support@saukipay.net
+              <a href='mailto:support@sintax.co.uk' className='text-primary hover:underline'>
+                support@sintax.co.uk
               </a>
             </p>
           </div>

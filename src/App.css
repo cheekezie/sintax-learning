@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@300;400;500&display=swap');
+
 @import 'tailwindcss';
 
 /* 
@@ -7,8 +9,8 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 /* @suppress */
 @theme {
-  --color-primary: #101935;
-  --color-primary-light: #669332;
+  --color-primary: #e8692a;
+  --color-primary-light: #e8692a;
   --color-primary-50: #fff4ec;
   --color-primary-100: #ffe6d4;
   --color-primary-200: #ffcaa8;
@@ -20,8 +22,8 @@
   --color-primary-800: #993f00;
   --color-primary-900: #7a3200;
 
-  --color-secondary: #0a413e;
-  --color-secondary-50: #eef1f7;
+  --color-secondary: #0d1117;
+  --color-secondary-50: #0d1117;
   --color-secondary-100: #d6dcec;
   --color-secondary-200: #b0bddc;
   --color-secondary-300: #8a9fcc;
@@ -59,96 +61,41 @@
 
 /* Fallback CSS custom properties for compatibility */
 :root {
-  --color-primary: #669332;
-  --color-primary-light: #188883;
-  --color-secondary: #0a413e;
+  --color-primary: #e8692a;
+  --color-secondary: #0d1117;
   --color-bg: #ffffff;
   --color-text: #0f172a;
   --color-dark: #505050;
   --color-off-white: #f7fafb;
+
+  --font-display: 'Syne', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
 }
 
 /* Optional: Dark theme */
 [data-theme='dark'] {
-  --color-primary: #93c5fd; /* Blue-300 */
-  --color-secondary: #f97316; /* Orange-500 */
+  --color-primary: #e8692a;
+  --color-secondary: #0d1117;
   --color-bg: #0f172a;
   --color-text: #ffffff;
-}
-
-/* Sora Font Family Declarations */
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Sora';
-  src: url('./assets/fonts/Sora-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Apply Sora font globally */
 body {
-  font-family: 'Sora', sans-serif;
   text-size-adjust: 100%;
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--dark);
+}
+
+h6,
+h2,
+h1 {
+  font-family: var(--font-display);
 }
 
 /* Filter Modal Slide-in Animation */

@@ -1,8 +1,13 @@
 import type { CourseEnquiryPayloadI } from '@/interface';
-import courseService from '@/services/course.service';
+import courseService from '@/features/course/course.api';
+import { persistUserProfile } from '@/hooks/useCurrentUser';
+import { useToast } from '@/hooks/useToast';
+import { RequestService } from '@/services/api/client';
+import { setUserProfile } from '@/store/authslice';
 import { formatDuration } from '@/utils/dateFormatter';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const useCreateCourse = () => {
@@ -61,27 +66,37 @@ export function useCreateCourseEnquiry(onSuccessClose?: () => void) {
       onSuccessClose?.(); // ✅ close modal
     },
 
-    onError: (err: any) => {},
+    onError: (err: any) => { },
   });
 }
 
 export function useEnrolCourse(onSuccessClose?: () => void) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { showSuccess, showError } = useToast();
 
   return useMutation({
     mutationFn: (payload: any) => courseService.enrolCourse(payload),
 
     onSuccess: (res) => {
-      onSuccessClose?.(); // ✅ close modal
+      const { token, user } = res.data ?? {};
 
-      // redirect to billing
-      navigate('/billing', {
-        replace: true,
-      });
+      if (token) {
+        RequestService.setToken(token);
+      }
 
-      // Save users login session
+      if (user) {
+        dispatch(setUserProfile(user));
+        persistUserProfile(user);
+      }
+
+      showSuccess(res.message);
+      onSuccessClose?.();
+      navigate('/billing', { replace: true });
     },
 
-    onError: (err: any) => {},
+    onError: (err: any) => {
+      showError('Enrollment failed', err?.message ?? 'Something went wrong. Please try again.');
+    },
   });
 }

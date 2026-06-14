@@ -4,7 +4,7 @@ import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
 import CourseEnquiryModal from '@/components/modals/CourseEnquiryModal';
 import { Input } from '@/components/ui';
-import { useCoursePublic } from '@/hooks/course.hook';
+import { useCoursePublic } from '@/features/course/course.query';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import LessonList from '../../components/course/LessonList';
-import Assignments from '../../components/course/Assignments';
-import Instrcutors from '../../components/course/Instructors';
-import Projects from '../../components/course/Projects';
+import LessonList from '../../../components/course/LessonList';
+import Assignments from '../../../components/course/Assignments';
+import Instrcutors from '../../../components/course/Instructors';
+import Projects from '../../../components/course/Projects';
 import PageHeader from '@/components/dashboard/PageHeader';
 
 const tabs = ['Lessons', 'Assignments', 'Projects', 'Instructors'];

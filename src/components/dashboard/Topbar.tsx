@@ -7,7 +7,7 @@ interface TopbarProps {
   onTabChange?: (tab: string) => void;
 }
 
-const Topbar = ({ title = 'SaukiPay', activeTab = 'overview', onTabChange }: TopbarProps) => {
+const Topbar = ({ title = 'Sintax', activeTab = 'overview', onTabChange }: TopbarProps) => {
   const { user } = useAuth();
   const tabs = ['Overview', 'Graph Performance', 'Revenue', 'Schedule'];
 
@@ -58,9 +58,9 @@ const Topbar = ({ title = 'SaukiPay', activeTab = 'overview', onTabChange }: Top
 
           {/* Profile Avatar */}
           <div className='w-10 h-10 rounded-full ring-2 ring-primary overflow-hidden bg-gray-200'>
-            {user?.profileImage ? (
+            {user?.profilePhoto ? (
               <img
-                src={user.profileImage}
+                src={user.profilePhoto}
                 alt='Profile'
                 className='w-full h-full object-cover'
                 onError={(e) => {
@@ -69,8 +69,8 @@ const Topbar = ({ title = 'SaukiPay', activeTab = 'overview', onTabChange }: Top
                 }}
               />
             ) : (
-              <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-secondary text-white text-xs font-semibold'>
-                {(user?.fullName || user?.name || 'U').charAt(0).toUpperCase()}
+              <div className='w-full h-full flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-xs font-semibold'>
+                {(user?.firsName ?? '').charAt(0).toUpperCase()}
               </div>
             )}
           </div>

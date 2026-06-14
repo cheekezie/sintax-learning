@@ -1,4 +1,5 @@
 export { useAuth } from './useAuth';
+export { persistUserProfile, clearUserProfile } from './useCurrentUser';
 export { useToast } from './useToast';
 export { useModal } from './useModal';
 export { useFormValidation } from './useFormValidation';

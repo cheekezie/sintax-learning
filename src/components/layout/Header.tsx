@@ -55,9 +55,9 @@ const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
             >
               {/* Profile Avatar */}
               <div className='w-10 h-10 rounded-full overflow-hidden shrink-0 bg-gray-200 ring-2 ring-primary'>
-                {user?.profileImage ? (
+                {user?.profilePhoto ? (
                   <img
-                    src={user.profileImage}
+                    src={user.profilePhoto}
                     alt='user'
                     className='w-full h-full object-cover'
                     onError={(e) => {
@@ -66,7 +66,7 @@ const Header = ({ onSidebarCollapse, onMobileMenu }: prop) => {
                   />
                 ) : (
                   <div className='w-full h-full flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-sm font-semibold'>
-                    {(user?.fullName || user?.name || 'I').charAt(0).toUpperCase()}
+                    {(user?.firstName ?? 'dd').charAt(0).toUpperCase()}
                   </div>
                 )}
               </div>

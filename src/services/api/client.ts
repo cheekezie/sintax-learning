@@ -119,15 +119,15 @@ export class RequestService {
   /** Initialize token from localStorage */
   private static initializeToken() {
     if (RequestService.token === null) {
-      RequestService.token = localStorage.getItem('auth_token');
+      RequestService.token = localStorage.getItem('access_token');
     }
   }
 
   /** Set authentication token and persist to localStorage */
   static setToken(token: string | null) {
     RequestService.token = token;
-    if (token) localStorage.setItem('auth_token', token);
-    else localStorage.removeItem('auth_token');
+    if (token) localStorage.setItem('access_token', token);
+    else localStorage.removeItem('access_token');
   }
 
   /** Get current authentication token */
@@ -148,15 +148,6 @@ export class RequestService {
       .join('&');
   }
 
-  private static getOrgHeaders() {
-    const headers: Record<string, string> = {};
-    const activeOrgId = localStorage.getItem('active_org_id');
-    if (activeOrgId) {
-      headers['X-Organization-Id'] = activeOrgId;
-      headers['Organization-Id'] = activeOrgId;
-    }
-    return headers;
-  }
 
   /** Create (or return) a single axios instance with interceptors */
   private static getClient(): AxiosInstance {
@@ -170,12 +161,10 @@ export class RequestService {
     // Request interceptor: attach auth/org headers and set content-type
     client.interceptors.request.use((config) => {
       const token = RequestService.getToken();
-      const orgHeaders = RequestService.getOrgHeaders();
 
       config.headers = {
         ...(config.headers ?? {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        ...orgHeaders,
       } as any;
 
       // Default content type for JSON requests unless explicitly set (e.g. file/blob)

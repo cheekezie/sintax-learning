@@ -1,27 +1,26 @@
 export interface UserI {
-  _id?: string;
-  id?: string;
-  fullName?: string;
-  firstName?: string;
-  lastName?: string;
-  name?: string;
-  email?: string;
-  phoneNumber?: string;
-  phone?: string;
-  profileImage?: string;
-  gender?: 'male' | 'female' | 'Male' | 'Female';
-  phoneVerified?: boolean;
-  disabled?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  lastLogin?: string;
-  role?: string;
-  roles?: string[];
-  permissions?: string[] | Record<string, { read?: boolean; write?: boolean }>;
-
-  currentOrgVariant?: string;
-  groupManagedFees?: boolean;
-  [key: string]: any;
+  membership_id: string;
+  firstName: string;
+  otherName: string;
+  lastName: string;
+  fullName: string;
+  profilePhoto: string;
+  location: string;
+  country: string;
+  email: string;
+  phone: string;
+  address: string;
+  role: 'student' | 'instructor' | 'admin';
+  isVerified: boolean;
+  emailVerified: boolean;
+  phoneVerified: boolean;
+  lastLogin: Date;
+  createdAt: Date;
+  updateddAt: Date;
+  status: 'active' | 'pending' | 'deactivated' | 'abandoned';
+  refreshToken: string;
+  password: string;
+  tokenVersion: number;
 }
 
 // User Types

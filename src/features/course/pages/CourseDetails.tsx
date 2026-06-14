@@ -5,7 +5,7 @@ import Footer from '@/components/layout/Footer';
 import NavBar from '@/components/layout/NavBar';
 import EnrolmentModal from '@/components/modals/EnrolmentModal';
 import { Button } from '@/components/ui';
-import { useCourseDetail } from '@/hooks/course.hook';
+import { useCourseDetail } from '@/features/course/course.query';
 import type { CurriculumI } from '@/interface';
 import { formatDate } from '@/utils/dateFormatter';
 import { formatCurrency } from '@/utils/formatCurrency';

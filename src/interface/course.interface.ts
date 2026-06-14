@@ -1,4 +1,4 @@
-import type { CoursePricngI } from './cohort.interface';
+import type { CohortI, CoursePricngI } from './cohort.interface';
 import type { UserI } from './user.interface';
 
 export interface CourseI {
@@ -69,4 +69,21 @@ export interface CourseRegisterPayloadI {
   city: string;
   otherName: string;
   courseId: string;
+}
+
+export interface EnrollmnentI {
+  _id: string;
+  cohort: CohortI;
+  course: CourseI;
+  user: any;
+  amount: number
+  createdAt: string;
+  date: string;
+  discount: number
+  extraCharge: number;
+  paymentPlan: 'full' | 'installment'
+  progress: number
+  status: 'pending' | 'in-progress' | 'completed';
+  totalPaid: number;
+
 }

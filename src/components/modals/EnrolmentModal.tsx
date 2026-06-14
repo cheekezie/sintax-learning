@@ -1,4 +1,4 @@
-import { useEnrolCourse } from '@/hooks/course.hook';
+import { useEnrolCourse } from '@/features/course/course.query';
 import { EnrolCourseSchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -34,7 +34,7 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
   const onSubmit = async () => {
     const payload = {
       ...getValues(),
-      cohort: currentCohort, // TO-DO: Let users select from list of cohorts
+      cohort: currentCohort, // TO-DO: Let users select from list of cohorts when multiple cohorts
       courseId,
     };
     mutate(payload);

@@ -2,10 +2,9 @@ import { AuthSideImage } from '@/assets';
 import { AuthLayout } from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui';
 import TextInput from '@/components/ui/TextInput';
-import api from '@/features/schools/api';
-import { useLogin } from '@/features/schools/queries';
+import { useLogin } from './auth.query';
+
 import { LoginSchema } from '@/schemas/auth.schema';
-import { CourseEnquirySchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -32,7 +31,7 @@ export default function LoginPage() {
   return (
     <AuthLayout
       title='Welcome to the future of education management'
-      subtitle='Easily Sign in to your admin Portal.'
+      subtitle='Easily Sign in to your learning Portal.'
       imageSrc={AuthSideImage}
     >
       <button

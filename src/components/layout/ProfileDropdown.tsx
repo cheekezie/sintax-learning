@@ -1,19 +1,14 @@
-import { MerchantRoles } from '@/enums/merchant.enum';
-import { hasPermission } from '@/utils/permissions';
-import { ChevronRight, LogOut, Settings, User } from 'lucide-react';
+import { useAuth } from '@/hooks';
+import { ChevronRight, LogOut, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 
 interface ProfileDropdownProps {
   onClose: () => void;
 }
 
 const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
-  const { user, role, permissions } = useAuth();
-
+  const { user } = useAuth();
   const navigate = useNavigate();
-
-  const canAccessSettings = role === MerchantRoles.PORTAL_ADMIN || hasPermission(permissions, 'stakeHolder.read');
 
   const handleLogout = async () => {
     try {
@@ -38,9 +33,9 @@ const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
       <div className='px-4 py-3 border-b border-slate-200/50'>
         <div className='flex items-center space-x-3'>
           <div className='w-10 h-10 rounded-full ring-2 ring-blue-500 overflow-hidden shrink-0 bg-gray-200'>
-            {user?.profileImage ? (
+            {user?.profilePhoto ? (
               <img
-                src={user.profileImage}
+                src={user.profilePhoto}
                 alt='user'
                 className='w-full h-full object-cover'
                 onError={(e) => {
@@ -49,16 +44,16 @@ const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
               />
             ) : (
               <div className='w-full h-full flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-sm font-semibold'>
-                {(user?.fullName || user?.name || 'U').charAt(0).toUpperCase()}
+                {(user?.fullName || user?.firsName || 'U').charAt(0).toUpperCase()}
               </div>
             )}
           </div>
           <div className='min-w-0 flex-1 text-left'>
             <p className='text-sm font-medium text-slate-800 truncate text-left'>
-              {user?.fullName || `${user?.firstName || 'User'} ${user?.lastName || ''}`.trim() || user?.name || 'User'}
+              {user?.fullName || `${user?.firsName || ''} ${user?.lastName || ''}`.trim() || 'User'}
             </p>
             <p className='text-xs text-slate-500 truncate text-left'>
-              {(role as string) || (user?.role as string) || 'Role'}
+              {user?.role || 'Student'}
             </p>
           </div>
         </div>

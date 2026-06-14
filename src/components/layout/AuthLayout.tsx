@@ -6,7 +6,6 @@ type AuthSplitLayoutProps = {
   subtitle?: string;
   children: React.ReactNode;
 
-  brandName?: string;
   brandTagline?: string;
 
   imageSrc: string;
@@ -16,12 +15,12 @@ type AuthSplitLayoutProps = {
   imageSide?: 'left' | 'right';
 };
 
+const brandName = 'SINTAX';
+const brandTagline = 'A modern learning platform designed to deliver and manage technology education at scale';
 export const AuthLayout = ({
   title,
   subtitle,
   children,
-  brandName = 'ENSSMP',
-  brandTagline = 'A management suite for education managers to seamlessly manage operations accrosss all school levels',
   imageSrc,
   imageAlt = 'Auth visual',
   imageSide = 'left',
@@ -65,8 +64,7 @@ export const AuthLayout = ({
           <div className='mx-auto flex w-full max-w-md flex-1 flex-col justify-center'>
             {/* Brand */}
             <div className='mb-6 flex items-center gap-3'>
-              <img src={Logo} className='w-12' />
-              <div className='text-xl font-bold text-gray-900'>{brandName}</div>
+              <img src={Logo} className='w-24' />
             </div>
 
             <h1 className='text-xl font-semibold leading-snug text-gray-900 md:text-[22px]'>{title}</h1>

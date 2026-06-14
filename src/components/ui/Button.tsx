@@ -30,7 +30,7 @@ const Button = ({
   children,
   className = '',
   fullWidth = true,
-  variant = 'secondary',
+  variant = 'primary',
   size = 'md',
   ...props
 }: ButtonProps) => {

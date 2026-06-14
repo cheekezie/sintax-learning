@@ -1,26 +1,26 @@
 import { ComponentLoading } from '@/components/ui/LoadingSpinner';
-import MyCourseDetails from '@/pages/course/MyCourseDetails';
+import MyCourseDetails from '@/features/course/pages/MyCourseDetails';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-const Home = React.lazy(() => import('../pages/Home'));
-const Login = React.lazy(() => import('../pages/auth/Login'));
-const FaqPage = React.lazy(() => import('../pages/FaqPage'));
-const NotFound = React.lazy(() => import('../pages/NotFound'));
-const CourseList = React.lazy(() => import('../pages/course/CourseList'));
-const CourseDetailPage = React.lazy(() => import('../pages/course/CourseDetails'));
+const Home = React.lazy(() => import('../features/Home'));
+const Login = React.lazy(() => import('../features/auth/Login'));
+const FaqPage = React.lazy(() => import('../features/FaqPage'));
+const NotFound = React.lazy(() => import('../features/NotFound'));
+const CourseList = React.lazy(() => import('../features/course/pages/CourseList'));
+const CourseDetailPage = React.lazy(() => import('../features/course/pages/CourseDetails'));
 const DashboardLayout = React.lazy(() => import('../navigation/DashboardLayout'));
-const DashboardHome = React.lazy(() => import('../pages/dashboard/DashboardHome'));
-const Billing = React.lazy(() => import('../pages/payment/Billing'));
-const Profile = React.lazy(() => import('../pages/Profile'));
-const Lessons = React.lazy(() => import('../pages/course/Lessons'));
-const MyCourseDatail = React.lazy(() => import('../pages/course/MyCourseDetails'));
+const DashboardHome = React.lazy(() => import('../features/dashboard/DashboardHome'));
+const Billing = React.lazy(() => import('../features/payment/Billing'));
+const Profile = React.lazy(() => import('../features/Profile'));
+const Lessons = React.lazy(() => import('../features/course/pages/Lessons'));
+const MyCourseDatail = React.lazy(() => import('../features/course/pages/MyCourseDetails'));
 
 // Business Pages
-const Business = React.lazy(() => import('../pages/business/BusinessTraining'));
+const Business = React.lazy(() => import('../features/business/BusinessTraining'));
 
 // Instructor
-const BecomeInstructor = React.lazy(() => import('../pages/instructor/BecomeInstructor'));
+const BecomeInstructor = React.lazy(() => import('../features/instructor/BecomeInstructor'));
 
 // Helper component to wrap lazy components with Suspense
 const LazyRoute = ({ children }: { children: React.ReactElement }) => (
@@ -32,6 +32,15 @@ export const AppRoutes = () => {
     <Routes>
       <Route
         path='/'
+        element={
+          <LazyRoute>
+            <Home />
+          </LazyRoute>
+        }
+      />
+
+      <Route
+        path='/login'
         element={
           <LazyRoute>
             <Login />

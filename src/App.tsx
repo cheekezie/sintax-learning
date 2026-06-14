@@ -18,14 +18,16 @@ function App() {
         <Router>
           <AlertProvider>
             <AlertBridge />
-            <ModalProvider>
-              <AuthProvider>
-                <ReactQueryProvider>
-                  <AppRoutes />
-                  <ModalContainer />
-                </ReactQueryProvider>
-              </AuthProvider>
-            </ModalProvider>
+            <ToastProvider>
+              <ModalProvider>
+                <AuthProvider>
+                  <ReactQueryProvider>
+                    <AppRoutes />
+                    <ModalContainer />
+                  </ReactQueryProvider>
+                </AuthProvider>
+              </ModalProvider>
+            </ToastProvider>
           </AlertProvider>
         </Router>
       </GlobalErrorProvider>
