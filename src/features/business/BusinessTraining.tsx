@@ -388,7 +388,7 @@ const BusinessTraining = () => {
               className='rounded-3xl border border-slate-100 bg-white p-6 shadow-sm'
               onSubmit={(e) => {
                 e.preventDefault();
-                alert('Submitted! Connect this to your API/email service.');
+                alert('Submitted! We will get in touch');
               }}
             >
               <div className='grid gap-4 sm:grid-cols-2'>
@@ -471,7 +471,7 @@ function Pill({ name, value, label }: { name: string; value: string; label: stri
         className={classNames(
           'rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-800',
           'peer-checked:border-secondary peer-checked:bg-secondary peer-checked:text-white',
-          'hover:bg-slate-50'
+          'hover:bg-slate-50',
         )}
       >
         {label}

@@ -26,6 +26,10 @@ export interface CourseI {
   cohortStartDate: string;
   cohortEndDate: string;
   pricing: CoursePricngI;
+  discount: {
+    originalPrice: number;
+    percentage: number
+  };
   availability: ['online', 'in-person'];
   locationAvailability?: {
     country: string; // ISO code: 'NG', 'GB'
@@ -73,17 +77,46 @@ export interface CourseRegisterPayloadI {
 
 export interface EnrollmnentI {
   _id: string;
-  cohort: CohortI;
+  cohort: CohortI | string;
   course: CourseI;
   user: any;
-  amount: number
+  amount: number;
   createdAt: string;
   date: string;
-  discount: number
+  discount: number;
   extraCharge: number;
-  paymentPlan: 'full' | 'installment'
-  progress: number
+  paymentPlan: 'full' | 'installment';
+  progress: number;
   status: 'pending' | 'in-progress' | 'completed';
+  paymentStatus: 'pending' | 'in-progress' | 'paid'
   totalPaid: number;
+  updatedAt: string;
+  totalLessons: number;
+  lessonsCompleted: number
+  enrolleeCount: number;
+  enrollees: [
+    {
+      fullName: string;
+      avatar: string
+    }
+  ]
+}
+export interface MyEnrollmnentI extends EnrollmnentI {
+  totalLessons: number;
+  lessonsCompleted: number
+  enrolleeCount: number;
+  enrollees: [
+    {
+      fullName: string;
+      avatar: string
+    }
+  ]
+}
 
+export interface PaginatedResponseI<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }

@@ -59,11 +59,14 @@ export function useCourseDetail(courseId: string) {
 }
 
 export function useCreateCourseEnquiry(onSuccessClose?: () => void) {
+  const { showSuccess, showError } = useToast();
+
   return useMutation({
     mutationFn: (payload: CourseEnquiryPayloadI) => courseService.createEnquiry(payload),
 
     onSuccess: (res) => {
-      onSuccessClose?.(); // ✅ close modal
+      showSuccess(res.message);
+      onSuccessClose?.(); //  close modal
     },
 
     onError: (err: any) => { },
@@ -79,24 +82,33 @@ export function useEnrolCourse(onSuccessClose?: () => void) {
     mutationFn: (payload: any) => courseService.enrolCourse(payload),
 
     onSuccess: (res) => {
-      const { token, user } = res.data ?? {};
+      // TO-DO: Restore when login is implemnted
+      // const { token, user } = res.data ?? {};
 
-      if (token) {
-        RequestService.setToken(token);
-      }
+      // if (token) {
+      //   RequestService.setToken(token);
+      // }
 
-      if (user) {
-        dispatch(setUserProfile(user));
-        persistUserProfile(user);
-      }
+      // if (user) {
+      //   dispatch(setUserProfile(user));
+      //   persistUserProfile(user);
+      // }
 
       showSuccess(res.message);
       onSuccessClose?.();
-      navigate('/billing', { replace: true });
+      // navigate('/billing', { replace: true });
     },
 
     onError: (err: any) => {
       showError('Enrollment failed', err?.message ?? 'Something went wrong. Please try again.');
     },
+  });
+}
+
+export function useGetEnrollments(params?: { page?: number; limit?: number }) {
+  return useQuery({
+    queryKey: ['enrollments', params],
+    queryFn: () => courseService.getEnrollments(params),
+    select: (res) => res.data,
   });
 }

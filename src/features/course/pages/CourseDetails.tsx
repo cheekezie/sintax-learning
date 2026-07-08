@@ -152,10 +152,17 @@ export default function CourseDetailPage() {
                   <section className='shadow-light py-8 px-6'>
                     <h2 className='text-secondary text-center mb-4 font-semibold'>
                       <span className='text-dark text-md'>From</span>{' '}
+                      {course?.discount && (
+                        <span className='line-through text-gray-500 mr-3 text-sm'>
+                          {formatCurrency(course?.discount.originalPrice, course?.pricing.currency)}
+                        </span>
+                      )}
                       {formatCurrency(course?.pricing.amount, course?.pricing.currency)}
-                      <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
-                        25% OFF
-                      </span>
+                      {course?.discount && (
+                        <span className='bg-primary rounded-4xl text-sm text-white ml-6 px-3 py-1 font-normal'>
+                          {course?.discount.percentage}% OFF
+                        </span>
+                      )}
                     </h2>
 
                     <div className='border-b border-b-gray-200' />

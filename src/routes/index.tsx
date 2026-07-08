@@ -11,7 +11,7 @@ const CourseList = React.lazy(() => import('../features/course/pages/CourseList'
 const CourseDetailPage = React.lazy(() => import('../features/course/pages/CourseDetails'));
 const DashboardLayout = React.lazy(() => import('../navigation/DashboardLayout'));
 const DashboardHome = React.lazy(() => import('../features/dashboard/DashboardHome'));
-const Billing = React.lazy(() => import('../features/payment/Billing'));
+const Billing = React.lazy(() => import('../features/payment/pages/Billing'));
 const Profile = React.lazy(() => import('../features/Profile'));
 const Lessons = React.lazy(() => import('../features/course/pages/Lessons'));
 const MyCourseDatail = React.lazy(() => import('../features/course/pages/MyCourseDetails'));

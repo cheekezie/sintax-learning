@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 export interface prop {
   category: string;
   title: string;
-  lessonsDone: 10;
-  totalLessons: 20;
+  lessonsDone: number;
+  totalLessons: number;
+  enrolleeCount: number;
   color: string;
   avatars: string[];
 }
-const MyCourseCard = ({ category, title, lessonsDone, totalLessons, avatars = [] }: prop) => {
+const MyCourseCard = ({ category, title, enrolleeCount, lessonsDone, totalLessons, avatars = [] }: prop) => {
   const progress = (lessonsDone / totalLessons) * 100;
 
   return (
@@ -45,9 +46,9 @@ const MyCourseCard = ({ category, title, lessonsDone, totalLessons, avatars = []
             ))}
 
             {/* Extra count */}
-            {avatars.length > 4 && (
+            {enrolleeCount > 4 && (
               <div className='w-8 h-8 bg-gray-800 text-white flex items-center justify-center rounded-full border-2 border-white text-xs'>
-                +{avatars.length - 4}
+                +{enrolleeCount - avatars.length}
               </div>
             )}
           </div>

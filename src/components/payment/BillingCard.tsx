@@ -1,3 +1,4 @@
+import { formatCurrency } from '@/utils/formatCurrency';
 import { ArrowRight, Download } from 'lucide-react';
 
 export interface prop {
@@ -8,6 +9,7 @@ export interface prop {
   nextDueDate: string;
   totalAmount: number;
   paid: number;
+  currency: string;
   onPayNow: () => void;
 }
 
@@ -18,7 +20,7 @@ const statusColors: any = {
   completed: 'bg-green-100 text-green-700',
 };
 
-const BillingCard = ({ plan, title, totalAmount, status, amountDue, paid, nextDueDate, onPayNow }: prop) => {
+const BillingCard = ({ plan, currency, title, totalAmount, status, amountDue, paid, nextDueDate, onPayNow }: prop) => {
   return (
     <div
       className={`p-5 rounded-2xl border bg-white relative overflow-hidden flex flex-col justify-between shadow-light`}
@@ -45,15 +47,15 @@ const BillingCard = ({ plan, title, totalAmount, status, amountDue, paid, nextDu
       <div className='border-b border-b-gray-300 my-3' />
       <div className='flex justify-between mb-3'>
         <span className='text-md'>Total Amount</span>
-        <span className='text-md font-semibold'>₦{totalAmount.toLocaleString()}</span>
+        <span className='text-md font-semibold'>{formatCurrency(totalAmount, currency)}</span>
       </div>
       <div className='flex justify-between mb-3'>
         <span className='text-md'>Total Paid</span>
-        <span className='text-md font-semibold'>₦{paid.toLocaleString()}</span>
+        <span className='text-md font-semibold'>{formatCurrency(paid, currency)}</span>
       </div>
       <div className='flex justify-between mb-3'>
         <span className='text-md'>Total Due</span>
-        <span className='text-md font-semibold'>₦{amountDue.toLocaleString()}</span>
+        <span className='text-md font-semibold'>{formatCurrency(amountDue, currency)}</span>
       </div>
       <div className='flex justify-between mb-3'>
         <span className='text-md'>Next Due Date</span>

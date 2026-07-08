@@ -3,6 +3,7 @@ export const CourseEndpoints = {
   getCoursePublic: '/course/public',
   enquiry: '/course/enquire',
   enrol: '/course/enrol',
+  enrollments: '/course/enrollments',
 };
 
 export const AuthEndpoints = {

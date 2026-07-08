@@ -1,93 +1,89 @@
-import { useNavigate } from 'react-router-dom';
 import MyCourseCard from '../../components/course/MyCourseCard';
 import PaymentReminder from '../../components/payment/PaymentReminder';
-
-const MyCourses: any[] = [
-  {
-    category: 'software',
-    title: 'Fullstack development bootcamp',
-    lessonsDone: 0,
-    totalLessons: 10,
-    color: 'yellow',
-    avatars: [
-      'https://randomuser.me/api/portraits/women/10.jpg',
-      'https://randomuser.me/api/portraits/men/12.jpg',
-      'https://randomuser.me/api/portraits/women/15.jpg',
-      'https://randomuser.me/api/portraits/men/16.jpg',
-      'https://randomuser.me/api/portraits/men/17.jpg',
-    ],
-  },
-  {
-    category: 'software',
-    title: 'Frontend development bootcamp',
-    lessonsDone: 6,
-    totalLessons: 10,
-    color: 'yellow',
-    avatars: [
-      'https://randomuser.me/api/portraits/women/10.jpg',
-      'https://randomuser.me/api/portraits/men/12.jpg',
-      'https://randomuser.me/api/portraits/women/15.jpg',
-      'https://randomuser.me/api/portraits/men/16.jpg',
-      'https://randomuser.me/api/portraits/men/17.jpg',
-    ],
-  },
-  {
-    category: 'software',
-    title: 'Product Design - UI/UX',
-    lessonsDone: 0,
-    totalLessons: 10,
-    color: 'yellow',
-    avatars: [
-      'https://randomuser.me/api/portraits/women/10.jpg',
-      'https://randomuser.me/api/portraits/men/12.jpg',
-      'https://randomuser.me/api/portraits/women/15.jpg',
-      'https://randomuser.me/api/portraits/men/16.jpg',
-      'https://randomuser.me/api/portraits/men/17.jpg',
-    ],
-  },
-];
+import { ComponentLoading } from '../../components/ui/LoadingSpinner';
+import { useGetEnrollments } from '../course/course.query';
+import { BookOpen } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DashboardHome() {
   const navigate = useNavigate();
+  const { data: enrollmentPage, isLoading } = useGetEnrollments({ page: 1, limit: 20 });
+  const enrollments = enrollmentPage?.data ?? [];
 
-  const payNow = () => {
-    navigate(`/billing`);
-  };
+  const hasPendingPayment = enrollments.some((e) => e.totalPaid < e.amount);
+  const totalAmount = enrollments.reduce((sum, e) => sum + e.amount, 0);
+  const totalPaid = enrollments.reduce((sum, e) => sum + e.totalPaid, 0);
+  const totalDue = totalAmount - totalPaid;
 
-  const goToLessosns = () => {
-    navigate(`/my-courses/lessons`);
-  };
+  // Flatten all upcoming lessons across all enrolled courses
+  const upcomingLessons = enrollments
+    .flatMap((e) =>
+      (e.course.curriculum ?? []).flatMap((section) =>
+        (section.outline ?? []).map((item) => ({
+          lesson: item.lesson,
+          courseTitle: e.course.title,
+        })),
+      ),
+    )
+    .slice(0, 5);
 
   return (
     <div className='w-full space-y-10'>
-      <PaymentReminder title='You have outstanding payments' total={3000} paid={0} due={3000} onPayNow={payNow} />
+      {hasPendingPayment && (
+        <PaymentReminder
+          title='You have outstanding payments'
+          total={totalAmount}
+          paid={totalPaid}
+          due={totalDue}
+          onPayNow={() => navigate('/billing')}
+        />
+      )}
 
       {/* My Courses */}
       <section>
         <h2 className='text-2xl font-semibold mb-4'>My courses</h2>
 
-        <div className={`grid gap-4 ${MyCourses.length > 3 ? 'md:grid-cols-3' : `md:grid-cols-${MyCourses.length}`}`}>
-          {/* Course Card */}
+        {isLoading ? (
+          <div className='flex justify-center py-12'>
+            <ComponentLoading size='lg' />
+          </div>
+        ) : enrollments.length === 0 ? (
+          <div className='flex flex-col items-center justify-center py-16 text-gray-400'>
+            <BookOpen className='w-12 h-12 mb-3' />
+            <p className='text-lg font-medium'>No courses yet</p>
+            <p className='text-sm'>Your enrolled courses will appear here.</p>
+          </div>
+        ) : (
+          <div
+            className={`grid gap-4 ${enrollments.length >= 3 ? 'md:grid-cols-3' : `md:grid-cols-${enrollments.length}`}`}
+          >
+            {enrollments.map((enrollment) => {
+              const totalLessons =
+                enrollment.course.curriculum?.reduce((sum, section) => sum + (section.outline?.length ?? 0), 0) ?? 0;
+              const lessonsDone = Math.round((enrollment.progress / 100) * totalLessons);
 
-          {MyCourses.map((course, i) => (
-            <MyCourseCard
-              key={i}
-              category={course.category}
-              title={course.title}
-              lessonsDone={course.lessonsDone}
-              totalLessons={course.totalLessons}
-              color='white'
-              avatars={course.avatars}
-            />
-          ))}
-        </div>
+              return (
+                <MyCourseCard
+                  key={enrollment._id}
+                  category={enrollment.course.category}
+                  title={enrollment.course.title}
+                  lessonsDone={enrollment.lessonsCompleted}
+                  totalLessons={enrollment.totalLessons}
+                  color='white'
+                  enrolleeCount={enrollment.enrollees.length}
+                  avatars={enrollment.enrollees?.map((i) => i?.avatar ?? i?.avatar)}
+                />
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* My Next Lessons */}
       <section>
         <div className='flex items-center justify-between mb-4'>
           <h2 className='text-2xl font-semibold'>My next lessons</h2>
-          <button className='text-blue-600 font-medium' onClick={goToLessosns}>
+          <button className='text-blue-600 font-medium' onClick={() => navigate('/my-courses/lessons')}>
             View all lessons
           </button>
         </div>
@@ -97,62 +93,37 @@ export default function DashboardHome() {
             <thead className='bg-gray-100'>
               <tr>
                 <th className='p-4'>Lesson</th>
-                <th className='p-4'>Teacher</th>
-                <th className='p-4'>Date</th>
+                <th className='p-4'>Course</th>
                 <th className='p-4'>Duration</th>
               </tr>
             </thead>
-
             <tbody className='text-md'>
-              <tr className='border-t'>
-                <td className='p-4'>
-                  <p className='font-medium'>01. Introduction to Creative Writing</p>
-                  <p className='text-sm text-gray-500'>Creative writing for beginners</p>
-                </td>
-                <td className='p-4'>Conner Garcia</td>
-                <td className='p-4'>12 January 2026</td>
-                <td className='p-4'>22 min</td>
-              </tr>
-
-              <tr className='border-t'>
-                <td className='p-4'>
-                  <p className='font-medium'>03. Foundations of Public Speaking</p>
-                  <p className='text-sm text-gray-500'>Public Speaking and Leadership</p>
-                </td>
-                <td className='p-4'>Saira Goodman</td>
-                <td className='p-4'>12 January 2026</td>
-                <td className='p-4'>40 min</td>
-              </tr>
-
-              <tr className='border-t'>
-                <td className='p-4'>
-                  <p className='font-medium'>05. Getting to know Adobe Illustrator</p>
-                  <p className='text-sm text-gray-500'>Digital Illustration with Adobe Illustrator</p>
-                </td>
-                <td className='p-4'>Tony Ware</td>
-                <td className='p-4'>12 January 2026</td>
-                <td className='p-4'>1h 08 min</td>
-              </tr>
-
-              <tr className='border-t'>
-                <td className='p-4'>
-                  <p className='font-medium'>11. Understanding audience psychology</p>
-                  <p className='text-sm text-gray-500'>Public Speaking: Basic course</p>
-                </td>
-                <td className='p-4'>Mya Guzman</td>
-                <td className='p-4'>12 January 2026</td>
-                <td className='p-4'>26 min</td>
-              </tr>
-
-              <tr className='border-t'>
-                <td className='p-4'>
-                  <p className='font-medium'>04. The importance of self reflection</p>
-                  <p className='text-sm text-gray-500'>Psychology of influence</p>
-                </td>
-                <td className='p-4'>Zohaib Osborn</td>
-                <td className='p-4'>12 January 2026</td>
-                <td className='p-4'>23 min</td>
-              </tr>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={3} className='p-8 text-center'>
+                    <ComponentLoading size='sm' />
+                  </td>
+                </tr>
+              ) : upcomingLessons.length === 0 ? (
+                <tr>
+                  <td colSpan={3} className='p-10 text-center text-gray-400'>
+                    No lessons available yet.
+                  </td>
+                </tr>
+              ) : (
+                upcomingLessons.map(({ lesson, courseTitle }, i) => (
+                  <tr key={i} className='border-t hover:bg-gray-50 transition-colors'>
+                    <td className='p-4'>
+                      <p className='font-medium'>{lesson.title}</p>
+                      <p className='text-sm text-gray-500 capitalize'>{lesson.mode?.replace(/-/g, ' ')}</p>
+                    </td>
+                    <td className='p-4 text-gray-600'>{courseTitle}</td>
+                    <td className='p-4 text-gray-500'>
+                      {lesson.estimatedDuration ? `${lesson.estimatedDuration} min` : '—'}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
