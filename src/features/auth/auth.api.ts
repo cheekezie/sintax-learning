@@ -1,5 +1,5 @@
 import type { ApiDataResI } from '@/interface';
-import type { LoginForm } from '@/schemas/auth.schema';
+import type { ForgotPasswordForm, LoginForm, ResetPasswordForm } from '@/schemas/auth.schema';
 import { RequestService } from '@/services/api/client';
 import { AuthEndpoints } from '@/services/api/endpoints';
 
@@ -12,6 +12,14 @@ export interface LoginResponseData {
 class AuthService {
   async login(payload: LoginForm) {
     return RequestService.post<ApiDataResI<LoginResponseData>>(AuthEndpoints.login, payload);
+  }
+
+  async forgotPassword(payload: ForgotPasswordForm) {
+    return RequestService.post<ApiDataResI<{ message: string }>>(AuthEndpoints.forgotPassword, payload);
+  }
+
+  async resetPassword(payload: ResetPasswordForm & { email: string }) {
+    return RequestService.post<ApiDataResI<{ message: string }>>(AuthEndpoints.resetPassword, payload);
   }
 }
 

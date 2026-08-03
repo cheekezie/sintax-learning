@@ -62,6 +62,14 @@ export default function Services() {
         style={{ bottom: '20%', right: '10%' }}
       />
 
+      <div className='relative mx-auto max-w-[1200px] text-center mb-10'>
+        <h2 className='text-2xl md:text-3xl font-bold text-white'>What We Teach</h2>
+        <p className='mt-3 text-gray-300 max-w-xl mx-auto'>
+          From writing production code to designing products and supporting the systems that run them, our courses
+          cover the skills tech teams hire for.
+        </p>
+      </div>
+
       <div className='relative mx-auto grid md:grid-cols-4 gap-6 max-w-[1200px] items-start mb-6'>
         {cards.map((card, index) => (
           <motion.div

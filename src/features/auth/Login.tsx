@@ -1,4 +1,4 @@
-import { AuthSideImage } from '@/assets';
+import { LearningIllustration } from '@/assets';
 import { AuthLayout } from '@/components/layout/AuthLayout';
 import { Button } from '@/components/ui';
 import TextInput from '@/components/ui/TextInput';
@@ -8,6 +8,7 @@ import { LoginSchema } from '@/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -32,7 +33,7 @@ export default function LoginPage() {
     <AuthLayout
       title='Welcome to the future of education management'
       subtitle='Easily Sign in to your learning Portal.'
-      imageSrc={AuthSideImage}
+      imageSrc={LearningIllustration}
     >
       <button
         type='button'
@@ -71,9 +72,9 @@ export default function LoginPage() {
         </div>
 
         <div className='flex justify-end'>
-          <a href='/forgot-password' className='text-xs text-gray-900 underline underline-offset-4'>
+          <Link to='/forgot-password' className='text-xs text-gray-900 underline underline-offset-4'>
             Forgot Password
-          </a>
+          </Link>
         </div>
 
         <Button variant='primary' disabled={!isValid} onClick={onSubmit}>

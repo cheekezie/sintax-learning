@@ -10,6 +10,7 @@ import LogoWhiteOutline from '../assets/logo-white-alt.svg';
 import SmileySuccess from '../assets/smiley-success.jpg';
 import CoursePlaceholder from '../assets/course-placeholder.webp';
 import AuthSideImage from '../assets/login_img.webp';
+import LearningIllustration from '../assets/learning-illustration.svg';
 
 // Keep backward-compatible exports but prefer LogoLight
 export {
@@ -25,4 +26,5 @@ export {
   HeroRight3,
   CoursePlaceholder,
   AuthSideImage,
+  LearningIllustration,
 };

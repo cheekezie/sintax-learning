@@ -1,5 +1,5 @@
 import { persistUserProfile } from '@/hooks/useCurrentUser';
-import type { LoginForm } from '@/schemas/auth.schema';
+import type { ForgotPasswordForm, LoginForm, ResetPasswordForm } from '@/schemas/auth.schema';
 import { RequestService } from '@/services/api/client';
 import { setUser, setUserProfile } from '@/store/authslice';
 import { useMutation } from '@tanstack/react-query';
@@ -30,6 +30,34 @@ export function useLogin() {
       }
 
       navigate('/my-courses', { replace: true });
+    },
+
+    onError: () => {},
+  });
+}
+
+export function useForgotPassword() {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (payload: ForgotPasswordForm) => authService.forgotPassword(payload),
+
+    onSuccess: (_res, payload) => {
+      navigate('/reset-password', { state: { email: payload.email } });
+    },
+
+    onError: () => {},
+  });
+}
+
+export function useResetPassword() {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (payload: ResetPasswordForm & { email: string }) => authService.resetPassword(payload),
+
+    onSuccess: () => {
+      navigate('/login', { replace: true });
     },
 
     onError: () => {},

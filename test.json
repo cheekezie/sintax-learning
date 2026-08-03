@@ -1,0 +1,52 @@
+{
+  "reference": "FUN26000482",
+  "school": "665f1a...school",
+  "admissionAdvert": "665f2a...advert",
+  "fullName": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "session": "2026/2027",
+
+  "courseOfStudy": {
+    "programme": "665f2a...prog2",
+    "specialization": "665f2a...spec1",
+    "supervisor": "665f2a...sup1",
+    "mode": "full-time"
+  },
+
+  "checklistAnswers": {
+    "personalInfo": [
+      { "fieldId": "665f...03", "value": "1994-03-12" },
+      { "fieldId": "665f...17", "value": "female" }
+    ],
+    "academicRecords": [
+      { "fieldId": "665f...aa1", "value": "University of Lagos" },
+      { "fieldId": "665f...aa2", "value": "4.52" }
+    ],
+    "reference": [
+      { "fieldId": "665f...r1", "value": "Prof. Adekunle Bello" },
+      { "fieldId": "665f...r2", "value": "+2348012345678" },
+      { "fieldId": "665f...r3", "value": "abello@unilag.edu.ng" },
+      { "fieldId": "665f...r4", "value": "teacher" }
+    ]
+  },
+
+  "documents": {
+    "required": true,
+    "fields": [
+      {
+        "documentType": "o-level",
+        "url": "https://cdn.../waec-result.pdf",
+        "fields": [
+          { "fieldId": "665f...0d", "value": "4256789EA" },
+          { "fieldId": "665f...0e", "value": "WAEC-PIN-2026-XYZ123" }
+        ]
+      },
+      { "documentType": "certificate", "url": "https://cdn.../cert1.pdf" },
+      { "documentType": "certificate", "url": "https://cdn.../cert2.pdf" },
+      { "documentType": "passport", "url": "https://cdn.../passport.jpg" }
+    ]
+  },
+
+  "status": "submitted",
+  "paymentStatus": "paid"
+}

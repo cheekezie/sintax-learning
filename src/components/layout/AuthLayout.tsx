@@ -1,5 +1,6 @@
 import { Logo } from '@/assets';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 type AuthSplitLayoutProps = {
   title: string;
@@ -63,8 +64,13 @@ export const AuthLayout = ({
         >
           <div className='mx-auto flex w-full max-w-md flex-1 flex-col justify-center'>
             {/* Brand */}
-            <div className='mb-6 flex items-center gap-3'>
-              <img src={Logo} className='w-24' />
+            <div className='mb-6 flex items-center justify-between gap-3'>
+              <Link to='/'>
+                <img src={Logo} className='w-24' />
+              </Link>
+              <Link to='/' className='text-sm font-medium text-gray-500 hover:text-gray-900 transition'>
+                Home
+              </Link>
             </div>
 
             <h1 className='text-xl font-semibold leading-snug text-gray-900 md:text-[22px]'>{title}</h1>

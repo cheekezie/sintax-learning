@@ -136,7 +136,7 @@ export default function CourseDetailPage() {
                   {/* What You Will Learn */}
                   <section className='mb-6'>
                     <h2 className='text-base font-semibold'>What You Will Learn</h2>
-                    <ul className='list-disc pl-6 space-y-1 text-gray-700'>
+                    <ul className='list-disc pl-6 space-y-1 text-gray-700 text-md'>
                       {course?.learningOutcomes.map((curr, index) => (
                         <li key={index}>{curr}</li>
                       ))}
@@ -146,6 +146,18 @@ export default function CourseDetailPage() {
                   <section className=''>
                     <h2 className='text-base font-semibold'>Course Curriculum</h2>
                     <Accordion items={course?.curriculum ?? []} />
+                  </section>
+
+                  <section className='mt-6'>
+                    <h2 className='text-base font-semibold'>Capstone Project</h2>
+                    <p className='text-md text-gray-700'>{course?.project.description}</p>
+                    <ul className='list-disc pl-6 space-y-1 text-gray-700'>
+                      {course?.project.outline.map((curr, index) => (
+                        <li key={index} className='text-md'>
+                          {curr}
+                        </li>
+                      ))}
+                    </ul>
                   </section>
                 </main>
                 <aside className='sticky top-12  h-fit'>

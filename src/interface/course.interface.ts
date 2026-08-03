@@ -18,6 +18,10 @@ export interface CourseI {
   tags: string[];
   category: string;
   curriculum: CurriculumI[];
+  project: {
+    description: string;
+    outline: string[]
+  }
   instructors: any[];
   learningMode: 'cohort' | 'on-demand' | 'hybrid';
   instrctirLed: boolean;

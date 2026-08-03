@@ -4,32 +4,44 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const faqs = [
   {
-    question: 'How do I register as a Merchant?',
+    question: 'Do I need any prior experience to enroll in a course?',
     answer:
-      'To register as a merchant, you need to own a valid business registration document and provide your bank account details during signup.',
+      "It depends on the course level. Beginner courses assume no prior experience, while intermediate and advanced courses list specific prerequisites on their course page. Check the course's learning outcomes and curriculum to see if it's the right fit for you.",
   },
   {
-    question: 'What is a payment gateway?',
+    question: "What's the difference between cohort-based and on-demand courses?",
     answer:
-      'A payment gateway is a secure service that processes online payments by verifying and transferring funds between customers and merchants.',
+      'Cohort-based courses run on a fixed schedule with live, instructor-led sessions alongside a group of peers, and have set start and end dates. On-demand courses are self-paced, pre-recorded, and can be started and completed on your own schedule. Some courses are hybrid, combining both formats.',
   },
   {
-    question: 'How long does merchant verification take?',
-    answer: 'Merchant verification typically takes between 24 to 48 hours after submitting all required documents.',
-  },
-  {
-    question: 'What payment methods are supported?',
+    question: 'Will I get a certificate after completing a course?',
     answer:
-      'We support multiple payment methods including debit cards, credit cards, bank transfers, and mobile wallets.',
+      "Yes. Once you complete all required lessons and the course project, you'll receive a certificate of completion that you can share on LinkedIn or add to your portfolio.",
   },
   {
-    question: 'Are there any setup fees?',
-    answer: 'No, there are no setup or registration fees. You only pay transaction charges per successful payment.',
-  },
-  {
-    question: 'How secure are transactions?',
+    question: 'Are the courses project-based?',
     answer:
-      'All transactions are encrypted with industry-standard SSL and PCI DSS compliance to ensure maximum security.',
+      'Most courses include a hands-on project with clear outlines and deliverables so you can apply what you learn to real-world scenarios and build a portfolio piece, not just watch lessons passively.',
+  },
+  {
+    question: 'What payment methods are supported and are there discounts?',
+    answer:
+      'We support card payments and bank transfers. Discounts are occasionally available on select courses and are shown directly on the course pricing page when applicable.',
+  },
+  {
+    question: 'Can I access course content on mobile?',
+    answer:
+      'Yes, the platform is fully responsive, so you can watch lessons, track your progress, and access resources from your phone, tablet, or laptop.',
+  },
+  {
+    question: 'What if I get stuck during a lesson?',
+    answer:
+      'Instructor-led and cohort courses include access to instructors for questions and feedback. For on-demand courses, you can reach out through our support channels for help.',
+  },
+  {
+    question: 'Do you offer refunds if a course is not the right fit?',
+    answer:
+      "If you're not satisfied with a course, reach out to our support team within the stated refund window for your course and we'll review your request.",
   },
 ];
 
@@ -42,8 +54,8 @@ const FaqPage = () => {
           <div className='max-w-xl mx-auto'>
             <h1 className='text-center mb-8 text-xl px-4 text-white'>Frequently Asked Questions</h1>
             <p className='text-white text-center'>
-              With our competitive prices, you can enjoy more benefits while paying below the industry rate, offering
-              you the best value.
+              Everything you need to know about our courses, cohorts, and learning experience before you get
+              started.
             </p>
           </div>
         </div>

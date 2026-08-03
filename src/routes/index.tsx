@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 
 const Home = React.lazy(() => import('../features/Home'));
 const Login = React.lazy(() => import('../features/auth/Login'));
+const ForgotPassword = React.lazy(() => import('../features/auth/ForgotPassword'));
+const ResetPassword = React.lazy(() => import('../features/auth/ResetPassword'));
 const FaqPage = React.lazy(() => import('../features/FaqPage'));
 const NotFound = React.lazy(() => import('../features/NotFound'));
 const CourseList = React.lazy(() => import('../features/course/pages/CourseList'));
@@ -47,6 +49,24 @@ export const AppRoutes = () => {
           </LazyRoute>
         }
       />
+      <Route
+        path='/forgot-password'
+        element={
+          <LazyRoute>
+            <ForgotPassword />
+          </LazyRoute>
+        }
+      />
+
+      <Route
+        path='/reset-password'
+        element={
+          <LazyRoute>
+            <ResetPassword />
+          </LazyRoute>
+        }
+      />
+
       <Route
         path='/courses'
         element={

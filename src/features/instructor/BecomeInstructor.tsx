@@ -145,7 +145,6 @@ const BecomeInstructor = () => {
                 className='rounded-3xl border border-slate-100 bg-white p-6 shadow-sm'
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert('Application submitted! Connect this to your backend.');
                 }}
               >
                 <div className='grid gap-4 sm:grid-cols-2'>

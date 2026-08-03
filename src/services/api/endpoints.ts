@@ -8,6 +8,8 @@ export const CourseEndpoints = {
 
 export const AuthEndpoints = {
   login: '/auth/login',
+  forgotPassword: '/auth/forgot-password',
+  resetPassword: '/auth/reset-password',
 };
 
 // Legacy compatibility
