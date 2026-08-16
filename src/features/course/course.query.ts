@@ -58,25 +58,22 @@ export function useCourseDetail(courseId: string) {
   };
 }
 
-export function useCreateCourseEnquiry(onSuccessClose?: () => void) {
-  const { showSuccess, showError } = useToast();
-
+export function useCreateCourseEnquiry(onSuccessClose?: (message?: string) => void) {
   return useMutation({
     mutationFn: (payload: CourseEnquiryPayloadI) => courseService.createEnquiry(payload),
 
     onSuccess: (res) => {
-      showSuccess(res.message);
-      onSuccessClose?.(); //  close modal
+      onSuccessClose?.(res.message); //  show success modal
     },
 
     onError: (err: any) => { },
   });
 }
 
-export function useEnrolCourse(onSuccessClose?: () => void) {
+export function useEnrolCourse(onSuccessClose?: (message?: string) => void) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { showSuccess, showError } = useToast();
+  const { showError } = useToast();
 
   return useMutation({
     mutationFn: (payload: any) => courseService.enrolCourse(payload),
@@ -94,8 +91,7 @@ export function useEnrolCourse(onSuccessClose?: () => void) {
       //   persistUserProfile(user);
       // }
 
-      showSuccess(res.message);
-      onSuccessClose?.();
+      onSuccessClose?.(res.message);
       // navigate('/billing', { replace: true });
     },
 

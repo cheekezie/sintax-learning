@@ -11,6 +11,8 @@ import SmileySuccess from '../assets/smiley-success.jpg';
 import CoursePlaceholder from '../assets/course-placeholder.webp';
 import AuthSideImage from '../assets/login_img.webp';
 import LearningIllustration from '../assets/learning-illustration.svg';
+import HeroImage1 from '../assets/sintax-hero-1.webp';
+import HeroImage2 from '../assets/sintax-hero-2.webp';
 
 // Keep backward-compatible exports but prefer LogoLight
 export {
@@ -18,6 +20,8 @@ export {
   LogoIcon,
   LogoWhiteOutline,
   HeroRight,
+  HeroImage1,
+  HeroImage2,
   Logo,
   LogoWhite,
   LogoWhiteFull,

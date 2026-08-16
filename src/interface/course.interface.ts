@@ -20,8 +20,14 @@ export interface CourseI {
   curriculum: CurriculumI[];
   project: {
     description: string;
-    outline: string[]
-  }
+    title: string;
+    milestones: {
+      week: number,
+      title: string;
+      description: string;
+
+    }[]
+  };
   instructors: any[];
   learningMode: 'cohort' | 'on-demand' | 'hybrid';
   instrctirLed: boolean;
@@ -42,7 +48,7 @@ export interface CourseI {
 }
 export interface CurriculumI {
   title: string;
-  outline: { lesson: LessonI; order: number }[];
+  outline: { lesson: LessonI; title: string; order: number }[];
 }
 
 export interface LessonI {

@@ -6,14 +6,38 @@ import CourseEnquiryModal from '@/components/modals/CourseEnquiryModal';
 import { Input } from '@/components/ui';
 import { useCoursePublic } from '@/features/course/course.query';
 import { Search } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const CourseList = () => {
   const [enquireOpen, setEnquireOpen] = useState(false);
   const [courseId, setCourseId] = useState('');
-  const searchChanged = () => {};
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get('search') ?? '');
+
+  // Keep in sync if the URL's search param changes from outside this page (e.g. navbar search)
+  useEffect(() => {
+    setSearch(searchParams.get('search') ?? '');
+  }, [searchParams]);
+
+  const searchChanged = (value: string) => {
+    setSearch(value);
+    setSearchParams(value ? { search: value } : {}, { replace: true });
+  };
 
   const { isLoading, isFetching, error, data } = useCoursePublic();
+
+  const courses = useMemo(() => {
+    if (!data?.courses) return [];
+    const term = search.trim().toLowerCase();
+    if (!term) return data.courses;
+
+    return data.courses.filter((course) =>
+      [course.title, course.category, ...(course.tags ?? [])].some((field) =>
+        field?.toLowerCase().includes(term)
+      )
+    );
+  }, [data?.courses, search]);
 
   const onEnquire = (id: string) => {
     setEnquireOpen(!enquireOpen);
@@ -36,7 +60,7 @@ const CourseList = () => {
               placeholder='search course'
               name='search'
               className='rounded-3xl'
-              value=''
+              value={search}
               icon={Search}
               onChange={searchChanged}
             />
@@ -52,10 +76,14 @@ const CourseList = () => {
 
               {/* ✅ Loaded state */}
               {!isLoading &&
-                data?.courses.map((item, index) => (
+                courses.map((item, index) => (
                   <CourseCard data={item} style='card' key={index} onEnquire={onEnquire} />
                 ))}
             </div>
+
+            {!isLoading && !isFetching && courses.length === 0 && (
+              <p className='text-center text-gray-500 py-10'>No courses match "{search}".</p>
+            )}
           </div>
         </div>
       </main>

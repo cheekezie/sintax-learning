@@ -62,7 +62,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
     <ToastContext.Provider value={value}>
       {children}
 
-      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 space-y-2">
+      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-9999 space-y-2">
         {toasts.map((toast) => (
           <ToastComponent key={toast.id} toast={toast} onRemove={removeToast} />
         ))}

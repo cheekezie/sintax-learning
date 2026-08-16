@@ -16,7 +16,9 @@ import {
   Calendar,
   ChartColumn,
   CheckCircle,
+  ChevronDown,
   Grid,
+  PlayCircle,
   StarIcon,
   TimerIcon,
 } from 'lucide-react';
@@ -24,37 +26,70 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 function Accordion({ items }: { items: CurriculumI[] }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className='space-y-2'>
-      {items.map((item, index) => (
-        <div key={index} className='border-b border-b-gray-400 overflow-hidden transition-all pb-2'>
-          <button
-            onClick={() => toggle(index)}
-            className='w-full text-left px-4 py-2 font-medium text-md flex justify-between items-center'
-          >
-            {item.title}
-            <span className='text-primary'>{openIndex === index ? '−' : '+'}</span>
-          </button>
+    <div className='space-y-3'>
+      {items.map((item, index) => {
+        const isOpen = openIndex === index;
 
+        return (
           <div
-            className={`transition-all duration-300 overflow-hidden ${
-              openIndex === index ? 'max-h-40 p-4' : 'max-h-0 p-0'
+            key={index}
+            className={`rounded-xl border transition-colors ${
+              isOpen ? 'border-primary/30 bg-primary-50' : 'border-gray-200 bg-white'
             }`}
           >
-            <ul className='list-disc pl-6 space-y-1 text-gray-700 text-md mb-2'>
-              {item.outline.map((child, i) => (
-                <li key={i}>{child.lesson.title ?? `Outline ${index + 1}`}</li>
-              ))}
-            </ul>
+            <button
+              onClick={() => toggle(index)}
+              className='w-full flex items-center justify-between gap-4 px-5 py-4 text-left cursor-pointer'
+            >
+              <div className='flex items-center gap-4 min-w-0'>
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
+                    isOpen ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'
+                  }`}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div className='min-w-0'>
+                  <h3 className='font-semibold text-gray-900 truncate'>{item.title}</h3>
+                  <p className='text-xs text-gray-500 mt-0.5'>
+                    {item.outline.length} lesson{item.outline.length === 1 ? '' : 's'}
+                  </p>
+                </div>
+              </div>
+
+              <ChevronDown
+                className={`h-5 w-5 shrink-0 text-gray-400 transition-transform duration-300 ${
+                  isOpen ? 'rotate-180 text-primary' : ''
+                }`}
+              />
+            </button>
+
+            <div
+              className={`grid overflow-hidden transition-all duration-300 ease-in-out ${
+                isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+              }`}
+            >
+              <div className='overflow-hidden'>
+                <ul className='space-y-1 px-5 pb-5 pl-[52px]'>
+                  {item.outline.map((child, i) => (
+                    <li key={i} className='flex items-center gap-2.5 py-1.5 text-sm text-gray-700'>
+                      <PlayCircle className='h-4 w-4 shrink-0 text-primary/70' />
+                      {child.title ?? `Outline ${index + 1}`}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -143,18 +178,25 @@ export default function CourseDetailPage() {
                     </ul>
                   </section>
 
-                  <section className=''>
-                    <h2 className='text-base font-semibold'>Course Curriculum</h2>
+                  <section className='mb-6'>
+                    <div className='mb-4'>
+                      <h2 className='text-base font-semibold'>Course Curriculum</h2>
+                      <p className='text-sm text-gray-500 mt-1'>
+                        {course?.curriculum?.length ?? 0} module{course?.curriculum?.length === 1 ? '' : 's'}
+                        {course?.totalLessons ? ` • ${course.totalLessons} lessons` : ''}
+                      </p>
+                    </div>
                     <Accordion items={course?.curriculum ?? []} />
                   </section>
 
                   <section className='mt-6'>
                     <h2 className='text-base font-semibold'>Capstone Project</h2>
+                    <p className='text-md text-gray-700'>{course?.project.title}</p>
                     <p className='text-md text-gray-700'>{course?.project.description}</p>
                     <ul className='list-disc pl-6 space-y-1 text-gray-700'>
-                      {course?.project.outline.map((curr, index) => (
+                      {course?.project.milestones.map((curr, index) => (
                         <li key={index} className='text-md'>
-                          {curr}
+                          {curr.title}
                         </li>
                       ))}
                     </ul>

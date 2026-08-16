@@ -1,12 +1,19 @@
-import { SmileySuccess } from '@/assets';
+import { Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
 interface prop {
+  title?: string;
+  subtitle?: string;
   message: string;
   onClose?: () => void;
 }
-const RegistrationSuccess = ({ message, onClose }: prop) => {
+const RegistrationSuccess = ({
+  title = 'Registration Successful',
+  subtitle = 'Welcome on board to Sintax Learning',
+  message,
+  onClose,
+}: prop) => {
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -25,15 +32,17 @@ const RegistrationSuccess = ({ message, onClose }: prop) => {
       style={{ backgroundColor: 'rgba(255, 255, 255, 0.12)' }}
     >
       <div className='bg-white rounded-lg max-w-md w-full p-8 text-center border border-gray-200 shadow-2xl backdrop-blur-sm'>
-        {/* Illustration Section */}
+        {/* Success Icon */}
         <div className='mb-6 flex items-center justify-center'>
-          <img src={SmileySuccess} alt='Operation Successful' className='w-full h-32 max-h-64 object-contain' />
+          <div className='flex h-20 w-20 items-center justify-center rounded-full bg-green-100'>
+            <Check className='h-10 w-10 text-green-600' strokeWidth={3} />
+          </div>
         </div>
 
         {/* Text Content */}
         <div className='mb-6'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-3'>Registration Successful</h2>
-          <p className='text-gray-600 text-sm mb-4'>Welcome on board to Sintax Learning</p>
+          <h2 className='text-2xl font-bold text-gray-800 mb-3'>{title}</h2>
+          <p className='text-gray-600 text-sm mb-4'>{subtitle}</p>
           <p className='text-sm'>{message}</p>
         </div>
 

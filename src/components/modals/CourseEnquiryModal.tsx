@@ -1,8 +1,9 @@
 import { useCreateCourseEnquiry } from '@/features/course/course.query';
 import { CourseEnquirySchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Textarea } from '../ui';
+import { RegistrationSuccess, Textarea } from '../ui';
 import TextInput from '../ui/TextInput';
 import ModalWrapper from './ModalWrapper';
 
@@ -13,6 +14,8 @@ interface props {
 }
 
 const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
   const {
     register,
     getValues,
@@ -26,7 +29,12 @@ const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
     onClose();
   };
 
-  const { mutate, isPending } = useCreateCourseEnquiry(onClose);
+  const handleSuccessClose = () => {
+    setSuccessMessage(null);
+    onClose();
+  };
+
+  const { mutate, isPending } = useCreateCourseEnquiry((message) => setSuccessMessage(message ?? ''));
 
   const onSubmit = async () => {
     const payload = {
@@ -35,6 +43,17 @@ const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
     };
     mutate(payload);
   };
+
+  if (successMessage) {
+    return (
+      <RegistrationSuccess
+        title='Enquiry Sent!'
+        subtitle="We've received your message"
+        message={successMessage}
+        onClose={handleSuccessClose}
+      />
+    );
+  }
 
   return (
     <>

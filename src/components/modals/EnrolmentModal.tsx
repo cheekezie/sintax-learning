@@ -1,8 +1,9 @@
 import { useEnrolCourse } from '@/features/course/course.query';
 import { EnrolCourseSchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Select } from '../ui';
+import { RegistrationSuccess, Select } from '../ui';
 import TextInput from '../ui/TextInput';
 import ModalWrapper from './ModalWrapper';
 
@@ -16,6 +17,8 @@ interface props {
 }
 
 const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, currentCohort }: props) => {
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
   const {
     register,
     getValues,
@@ -23,13 +26,19 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(EnrolCourseSchema),
+    defaultValues: { deliveryMode: 'online' },
   });
 
   const handleClose = async () => {
     onClose();
   };
 
-  const { mutate, isPending } = useEnrolCourse(onClose);
+  const handleSuccessClose = () => {
+    setSuccessMessage(null);
+    onClose();
+  };
+
+  const { mutate, isPending } = useEnrolCourse((message) => setSuccessMessage(message ?? ''));
 
   const onSubmit = async () => {
     const payload = {
@@ -39,6 +48,17 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
     };
     mutate(payload);
   };
+
+  if (successMessage) {
+    return (
+      <RegistrationSuccess
+        title='Enrollment Successful!'
+        subtitle="You're all set"
+        message={successMessage}
+        onClose={handleSuccessClose}
+      />
+    );
+  }
 
   return (
     <>

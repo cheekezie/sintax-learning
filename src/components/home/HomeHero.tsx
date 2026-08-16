@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { HeroRight, HeroRight2 } from '@/assets';
+import { HeroImage1, HeroImage2, HeroRight, HeroRight2 } from '@/assets';
 import { Button } from '@/components/ui';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -67,7 +67,7 @@ const HomeHero = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: true }}
         >
-          <img src={HeroRight} alt='promo image' className='w-full h-full object-contain max-h-[400px]' />
+          <img src={HeroImage2} alt='promo image' className='w-full h-full object-contain max-h-[400px]' />
         </motion.div>
       </div>
     </section>
