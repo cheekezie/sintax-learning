@@ -1,7 +1,7 @@
 import { useEnrolCourse } from '@/features/course/course.query';
-import { EnrolCourseSchema } from '@/schemas/course.schema';
+import { getEnrolCourseSchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegistrationSuccess, Select } from '../ui';
 import TextInput from '../ui/TextInput';
@@ -14,10 +14,13 @@ interface props {
   courseId: string;
   currentCohort: string;
   availability: any[];
+  tracks?: string[];
 }
 
-const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, currentCohort }: props) => {
+const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, currentCohort, tracks = [] }: props) => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const hasTracks = tracks.length > 0;
+  const schema = useMemo(() => getEnrolCourseSchema(hasTracks), [hasTracks]);
 
   const {
     register,
@@ -25,7 +28,7 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(EnrolCourseSchema),
+    resolver: zodResolver(schema),
     defaultValues: { deliveryMode: 'online' },
   });
 
@@ -108,6 +111,19 @@ const EnrolmentModal = ({ isOpen, onClose, locations, courseId, availability, cu
             {...register('phone')}
             error={errors.phone}
           />
+
+          {hasTracks && (
+            <Select
+              label='Track'
+              id='track'
+              required
+              options={tracks}
+              placeholder='-- Please select --'
+              className='mb-4'
+              {...register('track')}
+              error={errors.track}
+            />
+          )}
 
           <Select
             label='Class Format'

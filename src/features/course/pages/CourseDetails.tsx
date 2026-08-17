@@ -109,12 +109,23 @@ export default function CourseDetailPage() {
     setIsEnrolOpen(true);
   };
 
+  const defaultDescription = 'Grow faster with expertly developed learning paths and live classes.';
+  const pageTitle = course ? `${course.title} | Sintax Learning` : 'Sintax Learning';
+  const pageDescription =
+    course?.description && course.description.length > 160
+      ? `${course.description.slice(0, 160).trim()}…`
+      : course?.description || defaultDescription;
+
   return (
     <>
+      <title>{pageTitle}</title>
+      <meta name='description' content={pageDescription} />
+
       <EnrolmentModal
         isOpen={isEnrolOpen}
         locations={course?.locationAvailability ?? []}
         availability={course?.availability ?? []}
+        tracks={course?.tracks ?? []}
         courseId={id ?? ''}
         currentCohort={nextCohort?._id ?? ''}
         onClose={onClose}

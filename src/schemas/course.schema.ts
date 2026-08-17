@@ -8,7 +8,18 @@ export const CourseEnquirySchema = z.object({
   phone: z.string().regex(phoneRegExp, 'Invalid phone number format'),
   message: z.string(),
   otherName: z.string(),
+  track: z.string().optional(),
 });
+
+// `track` is only compulsory for courses that actually have tracks
+export const getCourseEnquirySchema = (requireTrack: boolean) =>
+  requireTrack
+    ? CourseEnquirySchema.superRefine((data, ctx) => {
+        if (!data.track) {
+          ctx.addIssue({ path: ['track'], message: 'Track is required', code: 'custom' });
+        }
+      })
+    : CourseEnquirySchema;
 
 export const EnrolCourseSchema = z
   .object({
@@ -19,6 +30,7 @@ export const EnrolCourseSchema = z
     deliveryMode: z.string('Class format required'),
     city: z.string().optional(),
     otherName: z.string(),
+    track: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.deliveryMode === 'in-person' && !data.city) {
@@ -29,5 +41,15 @@ export const EnrolCourseSchema = z
       });
     }
   });
+
+// `track` is only compulsory for courses that actually have tracks
+export const getEnrolCourseSchema = (requireTrack: boolean) =>
+  requireTrack
+    ? EnrolCourseSchema.superRefine((data, ctx) => {
+        if (!data.track) {
+          ctx.addIssue({ path: ['track'], message: 'Track is required', code: 'custom' });
+        }
+      })
+    : EnrolCourseSchema;
 
 export type CourseEnquiryForm = z.infer<typeof CourseEnquirySchema>;

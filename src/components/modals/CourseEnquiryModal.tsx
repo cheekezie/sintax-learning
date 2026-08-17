@@ -1,9 +1,9 @@
 import { useCreateCourseEnquiry } from '@/features/course/course.query';
-import { CourseEnquirySchema } from '@/schemas/course.schema';
+import { getCourseEnquirySchema } from '@/schemas/course.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { RegistrationSuccess, Textarea } from '../ui';
+import { RegistrationSuccess, Select, Textarea } from '../ui';
 import TextInput from '../ui/TextInput';
 import ModalWrapper from './ModalWrapper';
 
@@ -11,10 +11,13 @@ interface props {
   courseId: string;
   isOpen: boolean;
   onClose: () => void;
+  tracks?: string[];
 }
 
-const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
+const CourseEnquiryModal = ({ isOpen, onClose, courseId, tracks = [] }: props) => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const hasTracks = tracks.length > 0;
+  const schema = useMemo(() => getCourseEnquirySchema(hasTracks), [hasTracks]);
 
   const {
     register,
@@ -22,7 +25,7 @@ const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(CourseEnquirySchema),
+    resolver: zodResolver(schema),
   });
 
   const handleClose = async () => {
@@ -104,6 +107,19 @@ const CourseEnquiryModal = ({ isOpen, onClose, courseId }: props) => {
             {...register('phone')}
             error={errors.phone}
           />
+          {hasTracks && (
+            <Select
+              label='Track'
+              id='track'
+              required
+              options={tracks}
+              placeholder='-- Please select --'
+              className='mb-4'
+              {...register('track')}
+              error={errors.track}
+            />
+          )}
+
           <Textarea label='Message' placeholder='your enquiry here' {...register('message')} error={errors.message} />
         </form>
       </ModalWrapper>

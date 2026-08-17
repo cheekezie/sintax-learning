@@ -44,9 +44,19 @@ const CourseList = () => {
     setCourseId(id);
   };
 
+  const enquiryTracks = useMemo(
+    () => data?.courses.find((c) => c._id === courseId)?.track ?? [],
+    [data?.courses, courseId]
+  );
+
   return (
     <>
-      <CourseEnquiryModal isOpen={enquireOpen} courseId={courseId} onClose={() => setEnquireOpen(false)} />
+      <CourseEnquiryModal
+        isOpen={enquireOpen}
+        courseId={courseId}
+        tracks={enquiryTracks}
+        onClose={() => setEnquireOpen(false)}
+      />
 
       <NavBar />
       <main className=''>

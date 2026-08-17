@@ -16,6 +16,7 @@ export interface CourseI {
   level: 'beginner' | 'intermediate' | 'advanced';
   learningOutcomes: string[];
   tags: string[];
+  tracks?: string[];
   category: string;
   curriculum: CurriculumI[];
   project: {
