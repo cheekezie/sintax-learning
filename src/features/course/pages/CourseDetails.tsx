@@ -145,7 +145,7 @@ export default function CourseDetailPage() {
 
             {!isFetching && (
               <div className='grid md:grid-cols-[1fr_400px] gap-8'>
-                <main>
+                <main className='min-w-0'>
                   <section>
                     <div className='w-full h-70 bg-gray-200 rounded-xl overflow-hidden mb-8'>
                       <div className='relative overflow-hidden h-full'>
@@ -202,7 +202,7 @@ export default function CourseDetailPage() {
                     </ul>
                   </section>
                 </main>
-                <aside className='sticky top-12  h-fit'>
+                <aside className='sticky top-12 h-fit min-w-0'>
                   <section className='shadow-light py-8 px-6'>
                     <h2 className='text-secondary text-center mb-4 font-semibold'>
                       <span className='text-dark text-md'>From</span>{' '}
