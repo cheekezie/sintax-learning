@@ -33,9 +33,7 @@ const CourseList = () => {
     if (!term) return data.courses;
 
     return data.courses.filter((course) =>
-      [course.title, course.category, ...(course.tags ?? [])].some((field) =>
-        field?.toLowerCase().includes(term)
-      )
+      [course.title, course.category, ...(course.tags ?? [])].some((field) => field?.toLowerCase().includes(term)),
     );
   }, [data?.courses, search]);
 
@@ -45,8 +43,8 @@ const CourseList = () => {
   };
 
   const enquiryTracks = useMemo(
-    () => data?.courses.find((c) => c._id === courseId)?.track ?? [],
-    [data?.courses, courseId]
+    () => data?.courses.find((c) => c._id === courseId)?.tracks ?? [],
+    [data?.courses, courseId],
   );
 
   return (
@@ -86,9 +84,7 @@ const CourseList = () => {
 
               {/* ✅ Loaded state */}
               {!isLoading &&
-                courses.map((item, index) => (
-                  <CourseCard data={item} style='card' key={index} onEnquire={onEnquire} />
-                ))}
+                courses.map((item, index) => <CourseCard data={item} style='card' key={index} onEnquire={onEnquire} />)}
             </div>
 
             {!isLoading && !isFetching && courses.length === 0 && (
