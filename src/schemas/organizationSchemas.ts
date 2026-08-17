@@ -1,5 +1,12 @@
 import Joi from 'joi';
-import { emailSchema } from './auth.schema';
+
+const emailSchema = Joi.string()
+  .email({ tlds: { allow: false } })
+  .messages({
+    'string.email': 'Invalid email',
+    'string.empty': 'Email is required',
+    'any.required': 'Email is required',
+  });
 
 /**
  * Organization Registration Schema for Dashboard

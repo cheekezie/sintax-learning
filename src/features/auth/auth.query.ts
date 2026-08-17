@@ -1,4 +1,5 @@
 import { persistUserProfile } from '@/hooks/useCurrentUser';
+import type { UserI } from '@/interface';
 import type { ForgotPasswordForm, LoginForm, ResetPasswordForm } from '@/schemas/auth.schema';
 import { RequestService } from '@/services/api/client';
 import { setUser, setUserProfile } from '@/store/authslice';
@@ -25,8 +26,8 @@ export function useLogin() {
       }
 
       if (user) {
-        dispatch(setUserProfile(user));
-        persistUserProfile(user);
+        dispatch(setUserProfile(user as UserI));
+        persistUserProfile(user as UserI);
       }
 
       navigate('/my-courses', { replace: true });

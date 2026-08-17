@@ -70,7 +70,7 @@ const Topbar = ({ title = 'Sintax', activeTab = 'overview', onTabChange }: Topba
               />
             ) : (
               <div className='w-full h-full flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-xs font-semibold'>
-                {(user?.firsName ?? '').charAt(0).toUpperCase()}
+                {(user?.firstName ?? '').charAt(0).toUpperCase()}
               </div>
             )}
           </div>

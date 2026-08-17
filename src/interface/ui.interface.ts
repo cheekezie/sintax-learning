@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 // Input Component
@@ -360,4 +360,13 @@ export interface ToastContextType {
   showWarning: (title: string, message?: string) => void;
   showInfo: (title: string, message?: string) => void;
   removeToast: (id: string) => void;
+}
+
+// Dropdown Component
+export interface DropdownProps {
+  triggerRef: RefObject<HTMLElement | null>;
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  placement?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
 }

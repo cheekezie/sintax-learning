@@ -22,11 +22,6 @@ const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
     onClose();
   };
 
-  const handleSettingsClick = () => {
-    navigate('/dashboard/settings');
-    onClose();
-  };
-
   return (
     <div className='py-2 min-w-[200px]'>
       {/* User Info Header */}
@@ -44,13 +39,13 @@ const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
               />
             ) : (
               <div className='w-full h-full flex items-center justify-center bg-linear-to-br from-primary to-secondary text-white text-sm font-semibold'>
-                {(user?.fullName || user?.firsName || 'U').charAt(0).toUpperCase()}
+                {(user?.fullName || user?.firstName || 'U').charAt(0).toUpperCase()}
               </div>
             )}
           </div>
           <div className='min-w-0 flex-1 text-left'>
             <p className='text-sm font-medium text-slate-800 truncate text-left'>
-              {user?.fullName || `${user?.firsName || ''} ${user?.lastName || ''}`.trim() || 'User'}
+              {user?.fullName || `${user?.firstName || ''} ${user?.lastName || ''}`.trim() || 'User'}
             </p>
             <p className='text-xs text-slate-500 truncate text-left'>
               {user?.role || 'Student'}
@@ -71,19 +66,6 @@ const ProfileDropdown = ({ onClose }: ProfileDropdownProps) => {
           </div>
           <ChevronRight className='w-4 h-4 text-slate-400' />
         </button>
-
-        {canAccessSettings && (
-          <button
-            onClick={handleSettingsClick}
-            className='w-full flex items-center justify-between px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer'
-          >
-            <div className='flex items-center space-x-3'>
-              <Settings className='w-4 h-4 text-slate-500' />
-              <span>Settings</span>
-            </div>
-            <ChevronRight className='w-4 h-4 text-slate-400' />
-          </button>
-        )}
 
         <div className='border-t border-slate-200/50 my-2'></div>
 

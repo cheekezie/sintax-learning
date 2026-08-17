@@ -25,9 +25,9 @@ const Profile = () => {
           <div className='bg-white rounded-lg shadow-sm border border-gray-200 p-6'>
             <div className='flex flex-col items-center text-center'>
               <div className='w-32 h-32 rounded-full ring-4 ring-primary/20 overflow-hidden bg-gray-200 flex-shrink-0 mb-4'>
-                {user?.profileImage ? (
+                {user?.profilePhoto ? (
                   <img
-                    src={user.profileImage}
+                    src={user.profilePhoto}
                     alt='Profile'
                     className='w-full h-full object-cover'
                     onError={(e) => {
@@ -36,11 +36,11 @@ const Profile = () => {
                   />
                 ) : (
                   <div className='w-full h-full flex items-center justify-center bg-gradient-to-br from-primary to-secondary text-white text-3xl font-bold'>
-                    {(user?.fullName || user?.name || 'U').charAt(0).toUpperCase()}
+                    {(user?.fullName || 'U').charAt(0).toUpperCase()}
                   </div>
                 )}
               </div>
-              <h2 className='text-2xl font-bold text-gray-900 mb-1'>{user?.fullName || user?.name || 'User'}</h2>
+              <h2 className='text-2xl font-bold text-gray-900 mb-1'>{user?.fullName || 'User'}</h2>
               <p className='text-sm text-gray-500 mb-4'>{(role as string) || user?.role || 'Role'}</p>
               <div className='flex flex-wrap items-center justify-center gap-3 w-full'>
                 {user?.phoneVerified !== undefined && (
@@ -58,7 +58,7 @@ const Profile = () => {
                     )}
                   </div>
                 )}
-                {user?.disabled === true && (
+                {user?.status === 'deactivated' && (
                   <div className='flex items-center space-x-1'>
                     <Shield className='w-4 h-4 text-red-500' />
                     <span className='text-xs text-red-600 font-medium'>Account Disabled</span>
@@ -79,7 +79,7 @@ const Profile = () => {
                 <div className='flex items-center space-x-2 mb-2'>
                   <span className='text-xs font-medium text-gray-500 uppercase tracking-wide'>Full name</span>
                 </div>
-                <p className='text-base font-medium text-gray-900'>{user?.fullName || user?.name || '—'}</p>
+                <p className='text-base font-medium text-gray-900'>{user?.fullName || '—'}</p>
               </div>
               <div>
                 <div className='flex items-center space-x-2 mb-2'>
@@ -104,7 +104,7 @@ const Profile = () => {
                     </div>
                   )}
                 </div>
-                <p className='text-base font-medium text-gray-900'>{user?.phoneNumber || user?.phone || '—'}</p>
+                <p className='text-base font-medium text-gray-900'>{user?.phone || '—'}</p>
               </div>
             </div>
           </div>

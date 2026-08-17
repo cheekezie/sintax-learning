@@ -1,0 +1,10 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <mask id="icB" maskUnits="userSpaceOnUse">
+    <rect x="-50" y="-50" width="1000" height="1000" fill="white"/>
+    <rect x="11.126" y="19.626" width="24.749" height="24.749" rx="4.6" transform="rotate(45 23.5 32)" fill="black" stroke="black" stroke-width="8.4"/>
+  </mask>
+</defs>
+<g mask="url(#icB)"><rect x="28.126" y="19.626" width="24.749" height="24.749" rx="4.6" transform="rotate(45 40.5 32)" fill="none" stroke="#FFFFFF" stroke-width="4.4" stroke-linejoin="round"/></g>
+<rect x="11.126" y="19.626" width="24.749" height="24.749" rx="4.6" transform="rotate(45 23.5 32)" fill="#FFFFFF"/>
+</svg>

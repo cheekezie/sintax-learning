@@ -1,7 +1,14 @@
 import Joi from 'joi';
-import { emailSchema } from './auth.schema';
 
 const phoneRegExp = /^(?:(?:81|91|70|80|90|71|081|091|070|080|090|071)\d{8,})$/;
+
+const emailSchema = Joi.string()
+  .email({ tlds: { allow: false } })
+  .messages({
+    'string.email': 'Invalid email',
+    'string.empty': 'Email is required',
+    'any.required': 'Email is required',
+  });
 
 export const RegisterUserSchema = Joi.object({
   email: emailSchema.required(),

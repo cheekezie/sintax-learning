@@ -11,12 +11,13 @@ export interface UserI {
   phone: string;
   address: string;
   role: 'student' | 'instructor' | 'admin';
+  gender?: string;
   isVerified: boolean;
   emailVerified: boolean;
   phoneVerified: boolean;
-  lastLogin: Date;
-  createdAt: Date;
-  updateddAt: Date;
+  lastLogin: string;
+  createdAt: string;
+  updatedAt: string;
   status: 'active' | 'pending' | 'deactivated' | 'abandoned';
   refreshToken: string;
   password: string;
