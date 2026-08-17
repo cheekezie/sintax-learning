@@ -18,6 +18,7 @@ import {
   CheckCircle,
   ChevronDown,
   Grid,
+  Layers,
   PlayCircle,
   StarIcon,
   TimerIcon,
@@ -278,6 +279,25 @@ export default function CourseDetailPage() {
                       </div>
                       <span className='text-right capitalize'>{course?.category}</span>
                     </div>
+
+                    {!!course?.tracks?.length && (
+                      <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
+                        <div className='flex items-center'>
+                          <Layers className='text-primary mr-2' size={16} />
+                          <span>Tracks</span>
+                        </div>
+                        <div className='flex flex-wrap justify-end gap-1.5'>
+                          {course.tracks.map((track, index) => (
+                            <span
+                              key={index}
+                              className='bg-primary-50 text-primary text-xs font-medium px-2.5 py-0.5 rounded-full capitalize'
+                            >
+                              {track}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div className='grid grid-cols-2 items-center py-4 text-md border-b border-b-gray-200'>
                       <div className='flex items-center'>
